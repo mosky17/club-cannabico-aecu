@@ -1,0 +1,4 @@
+<Files "cron_estados.php">
+Order Allow,Deny
+Deny from all
+</Files>

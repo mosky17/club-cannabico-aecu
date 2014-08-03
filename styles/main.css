@@ -1,0 +1,290 @@
+/* ############################# GENERAL #################################### */
+
+body {
+	background-color: #eeeeee;
+}
+
+.container {
+    position: relative;
+}
+
+.box {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid #dddddd;
+	padding:15px;
+}
+
+.container {
+    margin-top: 60px;
+    margin-bottom: 50px;
+}
+
+#listaSociosControlesContainer {
+	margin: 0 0 20px;
+}
+
+#nav_loader {
+	position: absolute;
+margin: 2px 20px;
+display: none;
+right: 10px;
+}
+
+#feedbackContainer,
+.feedbackContainerModal {
+	display: none;
+}
+
+#nav_brand {
+	margin:0 20px 0 10px;
+}
+
+#nav_logout {
+    float: right;
+    padding: 10px 0 0 4px;
+    margin: 0 90px 0 0;
+}
+
+.socioTag {
+margin: 0 5px 0 0;
+font-weight: normal;
+}
+
+.feedbackIcon {
+    float: left;
+    margin: 3px 10px 0 0;
+}
+
+.loaderModal{
+    position: absolute;
+    bottom: 14px;
+    left: 15px;
+    display: none;
+}
+
+.modal-body h4 {
+    float: left;
+    font-weight: normal;
+}
+
+.modal-body input,
+.modal-body select,
+.modal-body textarea {
+    float: left;
+    margin: 5px 0 0 20px;
+}
+
+.modalListaRow {
+    min-height: 40px;
+}
+
+#admin_header_name {
+    float: right;
+    padding: 10px 0 0;
+    margin: 0 0 0 0;
+    color: #fff;
+}
+
+#headerNavigation {
+    display: none;
+}
+
+.controlesLista {
+    position: relative;
+}
+
+.totalRegistros {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+}
+/* ############################# SOCIO #################################### */
+
+.socioDatosField h4 {
+	float:left;
+	width:150px;
+}
+
+.socioDatosField input {
+	float: left;
+margin: 5px;
+height: 28px;
+}
+
+.socioDatosField {
+	min-height: 40px;
+}
+
+#pagoBtnCancelar ,
+#gastoBtnCancelar ,
+#socioBtnSalvar {
+	width:100px;
+	float:right;
+	margin: 0 20px;
+}
+
+.socioIconBtnTitle {
+    color: #999;
+    font-size: 23px;
+    margin: 0 0 0 10px;
+    cursor: pointer;
+}
+
+.socioDatosValor p {
+    padding: 10px 0 0;
+    margin: 0;
+}
+
+.socioDatosValor input[type=checkbox] {
+	margin: -4px 10px 0;
+}
+
+.socioDatosValor label {
+	height: 30px;
+}
+
+.socioDatosValor textarea {
+	height: 130px;
+	max-height: 130px;
+	width: 290px;
+	max-width: 290px;
+}
+
+#socioDatosValorTags {
+    margin: 0 0 0 150px;
+}
+
+#socioLabelEstado {
+    position: absolute;
+    top: 9px;
+    right: -31px;
+    font-size: 17px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.labelEstadoActivo {
+    background: #8DB600;
+}
+
+.labelEstadoSuspendido {
+    background: #E32636;
+}
+
+.socioHeader {
+    position: relative;
+}
+
+/* ############################# LISTA SOCIOS #################################### */
+
+#listaSociosModalImportarNumero {
+    width:100px;
+}
+
+#socioArmarListaMailsModalCommentLista {
+    margin: 5px 15px;
+    float: left;
+}
+
+#socioArmarListaMailsModalLista {
+    margin: 10px 0px 0 100px;
+    height: 150px;
+    max-height: 150px;
+    font-size: 12px;
+    width: 250px;
+}
+
+#socioArmarListaMailsModalBtnArmar {
+    float: left;
+    margin: 50px 15px 0;
+}
+
+#socioArmarListaMailsModalGruposTable input[type=checkbox] {
+    margin: 12px 5px 0 0;
+}
+
+#socioArmarListaMailsModalGruposTable {
+    width: 80%;
+    margin: 10px 0 15px 100px;
+}
+
+#socioArmarListaMailsModalGruposTable label {
+    margin: 7px 10px 0;
+    font-size: 15px;
+}
+
+#socioArmarListaMailsModalGruposTable td {
+    width: 50%;
+}
+
+#listaSociosModalEstadosTexto {
+    width: 60%;
+    max-width: 60%;
+    height: 150px;
+    max-height: 150px;
+}
+
+/* ############################# PAGO #################################### */
+
+#pagoLabelEstado {
+    position: absolute;
+    top: 9px;
+    right: -31px;
+    font-size: 18px;
+    padding: 8px;
+    display: none ;
+}
+
+.labelCancelado {
+    background: #E32636;
+}
+
+/* ############################# GASTO #################################### */
+
+#gastoLabelEstado {
+    position: absolute;
+    top: 9px;
+    right: -31px;
+    font-size: 18px;
+    padding: 8px;
+    display: none ;
+}
+
+#exportarListaDropdown {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.red-arrow {
+    color: #e03a3a;
+}
+
+.green-arrow {
+    color: #70c641;
+}
+
+.totales {
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    margin: 0 0 10px;
+    padding: 10px;
+    min-height: 30px;
+    background-color: #fff;
+}
+
+.totales .campo {
+    float: left;
+    width: 25%;
+    font-size: 18px;
+    padding: 5px 0;
+}
+
+.charts-containers {
+    background-color: #fff;
+    margin: 0 0 30px;
+    padding: 20px;
+}
