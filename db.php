@@ -1,9 +1,9 @@
 <?php
 
-$db_name = "aecuorg_ccelpiso";
-$db_username = "aecuorg_ccelpiso";
-$db_passwd = "admin";
+class DB {
 
-$AECU_db_name = "aecuorg_socios";
-$AECU_db_username = "aecuorg_socios";
-$AECU_db_passwd = "0101soct3mp";
+    const db_name = "csc1";
+    const db_username = "csc";
+    const db_passwd = "csc";
+
+}

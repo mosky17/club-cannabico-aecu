@@ -25,12 +25,12 @@ require_once(dirname(__FILE__).'/config.php');
 
 <div id="headerNavigation" class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
-	    <a class="navbar-brand brand" id="nav_brand">Club Cannabico El Piso</a>
+	    <a class="navbar-brand brand" id="nav_brand"><?php echo $GLOBALS['name']; ?></a>
 	    <ul class="nav">
-		    <li class="nav_lista_link" id="nav_lista_socios"><a href="/">Socios</a></li>
-            <li class="nav_lista_link" id="nav_lista_pagos"><a href="/lista_pagos.php">Pagos</a></li>
-            <li class="nav_lista_link" id="nav_lista_gastos"><a href="/lista_gastos.php">Caja</a></li>
-            <li class="nav_lista_link" id="nav_lista_estadisticas"><a href="/estadisticas.php">Estadisticas</a></li>
+		    <li class="nav_lista_link" id="nav_lista_socios"><a href="<?php echo $GLOBALS['domain']; ?>">Socios</a></li>
+            <li class="nav_lista_link" id="nav_lista_pagos"><a href="<?php echo $GLOBALS['domain']; ?>/lista_pagos.php">Pagos</a></li>
+            <li class="nav_lista_link" id="nav_lista_gastos"><a href="<?php echo $GLOBALS['domain']; ?>/lista_gastos.php">Caja</a></li>
+            <li class="nav_lista_link" id="nav_lista_estadisticas"><a href="<?php echo $GLOBALS['domain']; ?>/estadisticas.php">Estadisticas</a></li>
 	    </ul>
 
         <a id="nav_logout" href="#" onClick="Toolbox.Logout(); return false;">salir</a>

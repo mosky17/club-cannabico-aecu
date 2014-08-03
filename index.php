@@ -10,7 +10,7 @@ if(Auth::access_level()<0) { ?>
 <?php }else{ ?>
 
 <head>
-    <title>Club Social de Cannabis #1</title>
+    <title><?php echo $GLOBALS['name']; ?></title>
 	<script src="scripts/index.js"></script>
 </head>
 
@@ -19,7 +19,7 @@ if(Auth::access_level()<0) { ?>
 		<h2>Lista de Socios</h2>
 			<div id="listaSociosControlesContainer" class="controlesLista">
 				<div id="listaSociosBtnCrearSocio" class="btn btn-primary">Nuevo Socio</div>
-                <div id="listaSociosBtnImportarSocio" class="btn btn-primary">Importar Socio de AECU</div>
+                <!--<div id="listaSociosBtnImportarSocio" class="btn btn-primary">Importar Socio de AECU</div>-->
                 <div id="listaSociosBtnArmarListaMails" class="btn btn-success">Armar Lista de Correo</div>
                 <!--<div id="listaSociosBtnEnviarEstado" class="btn btn-success" onclick="Index.OpenEnviarEstados();">Enviar Estados</div>-->
                 <h5 id="totalRegistrosSocios" class="totalRegistros"></h5>

@@ -1,6 +1,6 @@
 <?php
 
-include("/db.php");
+include(dirname(__FILE__)."/../../db.php");
 
 class Auth {
 
@@ -13,14 +13,9 @@ class Auth {
     }
 
 	static public function connect(){
-		mysql_pconnect("localhost", $db_username, $db_passwd)or die("cannot connect");
-		mysql_select_db($db_name)or die("cannot select DB");
+		mysql_pconnect("localhost", DB::db_username, DB::db_passwd)or die("cannot connect");
+		mysql_select_db(DB::db_name)or die("cannot select DB");
 	}
-
-    static public function connectAECU(){
-        mysql_pconnect("localhost", $AECU_db_username, $AECU_db_passwd)or die("cannot connect");
-        mysql_select_db($AECU_db_name)or die("cannot select DB");
-    }
 
 	static public function login($username,$passwd,$remember){
         Auth::connect();

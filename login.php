@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+require_once(dirname(__FILE__).'/config.php');
+
 ?>
 
 <script type="text/javascript">
@@ -66,7 +69,7 @@ session_start();
         <div class="login-form">
           <h2>Ingresar</h2>
 	  <div id="feedbackContainer"></div>
-          <form id="loginForm" action="/" method="POST">
+          <form id="loginForm" action="<?php echo $GLOBALS['domain']; ?>" method="POST">
             <fieldset>
               <div class="clearfix">
                 <input id="loginEmail" name="username" type="text" placeholder="Email">
