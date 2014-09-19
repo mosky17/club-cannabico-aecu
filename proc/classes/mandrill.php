@@ -1,11 +1,6 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Martin
- * Date: 19/12/13
- * Time: 07:43 PM
- * To change this template use File | Settings | File Templates.
- */
+
+include(dirname(__FILE__)."/../../config.php");
 
 class Mandrill {
 
@@ -14,16 +9,16 @@ class Mandrill {
         $uri = 'https://mandrillapp.com/api/1.0/messages/send.json';
 
         $postString = array(
-            "key" => "T6CP35RL9BM5FaAs37RnNw",
+            "key" => $GLOBALS['mandrill_api_key'],
             "message" => array(
                 "html" => $html,
                 "text" => $text,
                 "subject" => $subject,
-                "from_email" => "pagos@csc1.aecu.org.uy",
-                "from_name" => "Mi Club Social de Cannabis",
+                "from_email" => $GLOBALS['mandrill_reply_email'],
+                "from_name" => $GLOBALS['name'],
                 "to" => $to,
                 "headers" => array(
-                    "Reply-To" => "pagos@csc1.aecu.org.uy"),
+                    "Reply-To" => $GLOBALS['mandrill_reply_email']),
                 "track_opens" => true,
                 "track_clicks" => false,
                 "async" => true,

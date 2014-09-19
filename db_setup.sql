@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS `admins` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
+INSERT INTO `csc1`.`admins` (`id`, `nombre`, `email`, `secreto`, `permiso_pagos`) VALUES (NULL, 'Administrador', 'admin', MD5('admin'), '1');
+
 CREATE TABLE IF NOT EXISTS `config` (
   `name` varchar(50) NOT NULL,
   `value` varchar(100) NOT NULL,
@@ -86,6 +88,8 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `color` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+INSERT INTO `csc1`.`tags` (`id`, `nombre`, `color`) VALUES (NULL, 'Medicinal', '42E216'), (NULL, 'Pago Diferenciado', 'BF5213');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

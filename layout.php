@@ -14,13 +14,13 @@ require_once(dirname(__FILE__).'/config.php');
 
 <!DOCTYPE html>
 <head>
-    <link href="styles/bootstrap_old.css" rel="stylesheet" media="screen">
+    <link href="styles1.0.1/bootstrap_old.css" rel="stylesheet" media="screen">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
-	<link href="styles/main.css" rel="stylesheet">
+	<link href="styles1.0.1/main.css" rel="stylesheet">
 	<script src="http://code.jquery.com/jquery.js"></script>
-    <script src="scripts/bootstrap.js"></script>
-	<script src="scripts/toolbox.js"></script>
-	<script src="scripts/jquery.maskedinput.js"></script>
+    <script src="scripts1.0.1/bootstrap.js"></script>
+	<script src="scripts1.0.1/toolbox.js"></script>
+	<script src="scripts1.0.1/jquery.maskedinput.js"></script>
 </head>
 
 <div id="headerNavigation" class="navbar navbar-inverse navbar-fixed-top">

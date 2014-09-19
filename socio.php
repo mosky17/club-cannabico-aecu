@@ -12,7 +12,7 @@ if (Auth::access_level() < 0) {
 
     <head>
         <title>Club Social de Cannabis #1</title>
-        <script src="scripts/socio.js"></script>
+        <script src="scripts1.0.1/socio.js"></script>
     </head>
 
     <body>
@@ -75,7 +75,7 @@ if (Auth::access_level() < 0) {
             </div>
         </div>
         <!--Pagos-->
-        <h3 id="socioPagoseTitulo">&Uacute;ltimos Pagos <i id="socioBtnNuevoPago" class="icon-plus-sign-alt socioIconBtnTitle" title="Ingresar un nuevo pago"></i></h3>
+        <h3 id="socioPagoseTitulo">Pagos <i id="socioBtnNuevoPago" class="icon-plus-sign-alt socioIconBtnTitle" title="Ingresar un nuevo pago" onclick="Socio.OpenModalNuevoPago();"></i></h3>
 
         <div class="box row-fluid">
             <div class="span12">
@@ -96,7 +96,7 @@ if (Auth::access_level() < 0) {
         </div>
 
         <!--Entregas-->
-        <h3 id="socioEntregasTitulo">&Uacute;ltimas Entregas <i id="socioBtnNuevaEntrega" class="icon-plus-sign-alt socioIconBtnTitle" title="Registrar nueva entrega" onclick="Socio.OpenModalNuevaEntrega();"></i></h3>
+        <h3 id="socioEntregasTitulo">Entregas <i id="socioBtnNuevaEntrega" class="icon-plus-sign-alt socioIconBtnTitle" title="Registrar nueva entrega" onclick="Socio.OpenModalNuevaEntrega();"></i></h3>
 
         <div class="box row-fluid">
             <div class="span12">
@@ -135,19 +135,36 @@ if (Auth::access_level() < 0) {
             </div>
             <div class="modalListaRow">
                 <h4>Fecha</h4>
-                <input type="text" placeholder="" id="socioIngresarPagoFecha">
+                <input type="text" placeholder="" id="socioIngresarPagoFecha" style="width:130px;">
             </div>
             <div class="modalListaRow">
                 <h4>Raz&oacute;n</h4>
-                <select id="socioIngresarPagoRazon">
-                    <option value="matricula">Matr&iacute;cula</option>
+                <select id="socioIngresarPagoRazon" onchange="Socio.TogglePagoRazon();">
                     <option value="mensualidad">Mensualidad</option>
-                    <option value="otra">Otra</option>
+                    <option value="matricula">Matr&iacute;cula</option>
+                </select>
+                <select id="socioIngresarPagoRazonMensualidadMes">
+                    <option value="Enero">Enero</option>
+                    <option value="Febrero">Febrero</option>
+                    <option value="Marzo">Marzo</option>
+                    <option value="Abril">Abril</option>
+                    <option value="Mayo">Mayo</option>
+                    <option value="Junio">Junio</option>
+                    <option value="Julio">Julio</option>
+                    <option value="Agosto">Agosto</option>
+                    <option value="Setiembre">Setiembre</option>
+                    <option value="Octubre">Octubre</option>
+                    <option value="Noviembre">Noviembre</option>
+                    <option value="Diciembre">Diciembre</option>
+                </select>
+                <select id="socioIngresarPagoRazonMensualidadAnio">
+                    <option value="2014">2014</option>
+                    <option value="2015">2015</option>
                 </select>
             </div>
             <div class="modalListaRow">
                 <h4>Notas</h4>
-                <textarea style="width: 400px; height: 100px; max-width: 400px; max-height: 100px;"
+                <textarea style="width: 400px; height: 50px; max-width: 400px;"
                           id="socioIngresarPagoNotas"></textarea>
             </div>
         </div>
@@ -204,8 +221,7 @@ if (Auth::access_level() < 0) {
                 <h4>Variedad</h4>
                 <select id="socioIngresarEntregaVariedad">
                     <option value="">- seleccionar variedad -</option>
-                    <option value="Mix Automaticas SweetSeeds">Mix Automaticas SweetSeeds</option>
-                    <option value="Mix Hortilab">Mix Hortilab</option>
+                    <option value="Varias">Varias</option>
                 </select>
             </div>
             <div class="modalListaRow">
@@ -223,4 +239,8 @@ if (Auth::access_level() < 0) {
 
     </body>
 
-<?php } ?>
+<?php }
+
+require_once(dirname(__FILE__) . '/footer.php');
+
+?>

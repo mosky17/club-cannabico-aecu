@@ -75,6 +75,9 @@ var ListaPagos = {
     },
     ExportarComoListaTotalPagoPorSocio: function(){
         $("#exportIframe").attr("src","proc/controller.php?exportar=exportar_pago_total_por_socio");
+    },
+    ExportarComoListaPagosPorMes: function(){
+        $("#exportIframe").attr("src","proc/controller.php?exportar=exportar_pagos_por_mes");
     }
 }
 

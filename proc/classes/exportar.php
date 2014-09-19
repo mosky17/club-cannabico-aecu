@@ -8,6 +8,7 @@
  */
 
 require_once(dirname(__FILE__) . '/auth.php');
+require_once(dirname(__FILE__).'/../../config.php');
 
 Auth::connect();
 
@@ -149,6 +150,80 @@ class Exportar {
         }
         array_walk($data, "__outputCSV", $outstream);
         fclose($outstream);
+    }
+
+    static public function exportar_pagos_por_mes(){
+        $fechaArchivo = date('Y-m-d');
+        header("Content-type: text/csv");
+        header("Content-Disposition: attachment; filename=Lista_pagos_por_mes_".$GLOBALS['short_name']."-".$fechaArchivo.".csv");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+
+        $rowTitulo = array("# Socio", "Nombre", "Matricula");
+        $allRows = array();
+        $matriculasPorSocio = array();
+        $mesesDisponibles = array();
+        $pagosPorMes = array();
+        $socios = array();
+
+        $result = mysql_query("SELECT * FROM pagos p, socios s WHERE p.id_socio = s.id AND p.cancelado=0 ORDER BY s.numero");
+
+        if($result){
+            while ($row = mysql_fetch_array($result)) {
+
+                //add socio to array
+                if(count($socios) == 0 || $socios[count($socios)-1]["numero"] < $row['numero']){
+                    $socios[] = array("id"=>$row['id'],"numero"=>$row['numero'],"nombre"=>$row['nombre']);
+                }
+
+                //es matricula
+                if($row['razon'] == "matricula"){
+                    if(array_key_exists($row["numero"],$matriculasPorSocio)){
+                        $matriculasPorSocio[$row["numero"]] = $matriculasPorSocio[$row["numero"]] + round($row['valor']);
+                    }else{
+                        $matriculasPorSocio[$row["numero"]] = round($row['valor']);
+                    }
+                }
+                //es mensualidad
+                elseif(strpos($row['razon'],'mensualidad') == 0) {
+
+                    $mes = substr($row['razon'],13, -1);
+
+                    //add mes to array
+                    if(!in_array($mes,$mesesDisponibles)){
+                        $mesesDisponibles[] = $mes;
+                    }
+
+                    //add pago por mes
+                    if(array_key_exists($row['numero'],$pagosPorMes)){
+                        $pagosPorMes[$row['numero']][$mes] = round($row['valor']);
+                    }else{
+                        $pagosPorMes[$row['numero']] = array($mes=>round($row['valor']));
+                    }
+                }
+            }
+        }
+
+        //armar rows
+        $allRows[] = array_merge($rowTitulo,$mesesDisponibles);
+
+        foreach ($socios as $value) {
+            $row = array($value["numero"],$value["nombre"],$matriculasPorSocio[$value["numero"]]);
+            for($i = 0;$i<count($mesesDisponibles);$i++){
+                if(array_key_exists($value["numero"],$pagosPorMes)){
+                    if(array_key_exists($mesesDisponibles[$i],$pagosPorMes[$value["numero"]])){
+                        $row[] = $pagosPorMes[$value["numero"]][$mesesDisponibles[$i]];
+                    }else{
+                        $row[] = "";
+                    }
+                }else{
+                    $row[] = "";
+                }
+            }
+            $allRows[] = $row;
+        }
+
+        Exportar::outputCSV($allRows);
     }
 
     private static function sacarTildes($text) {

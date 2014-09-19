@@ -107,11 +107,8 @@ var Socio = {
             } else if (!error && isNaN($('#socioNuevoNumero').val())) {
                 error = 'Numero de socio invalido';
             }
-            var pattEmail = /.+(@).+(\.).+/;
             if (!error && $('#socioNuevoEmail').val() == '') {
                 error = 'Falto especificar un email';
-            } else if (pattEmail.test($('#socioNuevoEmail').val())) {
-                error = 'Email invalido';
             }
             if (!error && $('#socioNuevoNombre').val() == '') {
                 error = 'Falto especificar el nombre del socio';
@@ -204,8 +201,21 @@ var Socio = {
         $("#socioNuevoFechaInicio").mask("99/99/9999");
 
     },
+    OpenModalNuevoPago: function(){
+
+        $('.feedbackContainerModal').css('display', 'none');
+        $('#socioIngresarPagoValor').val('');
+        $('#socioIngresarPagoNotas').val('');
+        $('#socioIngresarPagoFecha').val(Toolbox.GetFechaHoyLocal());
+        $('#socioIngresarPagoModal').modal("show");
+    },
     IngresarPago: function () {
         if (Socio.VerificarDatosPago()) {
+
+            var razonPago = $("#socioIngresarPagoRazon").val();
+            if($("#socioIngresarPagoRazon").val() == "mensualidad"){
+                razonPago = "mensualidad (" + $('#socioIngresarPagoRazonMensualidadMes').val() + "/" + $('#socioIngresarPagoRazonMensualidadAnio').val() + ")";
+            }
 
             Toolbox.ShowLoaderModal();
             $.ajax({
@@ -214,7 +224,7 @@ var Socio = {
                 url: "proc/controller.php",
                 data: { func: "ingresar_pago", id_socio: Socio.IdSocio, valor: $("#socioIngresarPagoValor").val(),
                     fecha_pago: Toolbox.DataToMysqlDate($("#socioIngresarPagoFecha").val()),
-                    razon: $("#socioIngresarPagoRazon").val(), notas: $("#socioIngresarPagoNotas").val(),
+                    razon: razonPago, notas: $("#socioIngresarPagoNotas").val(),
                     tipo: $("#socioIngresarPagoTipo").val() }
             }).done(function (data) {
                     if (data && !data.error) {
@@ -227,7 +237,7 @@ var Socio = {
                             Toolbox.ShowFeedback('feedbackContainerModalIngresarPago', 'error', 'Unexpected error');
                         }
                     }
-                    Toolbox.StopLoader();
+                    Toolbox.StopLoaderModal();
                 });
         }
     },
@@ -378,7 +388,7 @@ var Socio = {
                             Toolbox.ShowFeedback('socioIngresarEntregaModalFeedback', 'error', 'Error Inesperado');
                         }
                     }
-                    Toolbox.StopLoader();
+                    Toolbox.StopLoaderModal();
                 });
         }
     },
@@ -433,6 +443,15 @@ var Socio = {
                 }
                 Toolbox.StopLoader();
             });
+    },
+    TogglePagoRazon: function(){
+        if($('#socioIngresarPagoRazon').val() == "mensualidad"){
+            $('#socioIngresarPagoRazonMensualidadMes').css('display','block');
+            $('#socioIngresarPagoRazonMensualidadAnio').css('display','block');
+        }else{
+            $('#socioIngresarPagoRazonMensualidadMes').css('display','none');
+            $('#socioIngresarPagoRazonMensualidadAnio').css('display','none');
+        }
     }
 }
 
@@ -450,12 +469,7 @@ $(document).ready(function () {
     }
     Socio.GetTags();
 
-    $('#socioBtnNuevoPago').on('click', function () {
-        $('.feedbackContainerModal').css('display', 'none');
-        $('#socioIngresarPagoModal').modal({
-            show: true
-        });
-    });
+
     $('#socioIngresarPagoModalBtnIngresar').on('click', Socio.IngresarPago);
     $("#socioIngresarPagoFecha").mask("99/99/9999");
     $('#socioLabelEstado').on('click', function () {

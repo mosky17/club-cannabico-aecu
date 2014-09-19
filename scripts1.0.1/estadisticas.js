@@ -7,6 +7,8 @@
  */
 
 var Estadisticas = {
+    DataGastos:null,
+    DataPagos:null,
     LoadListaGastos: function () {
 
         Toolbox.ShowLoader();
@@ -18,8 +20,11 @@ var Estadisticas = {
             data: { func: "get_lista_gastos" }
         }).done(function (data) {
                 if (data && !data.error) {
-                    Estadisticas.ArmarBarsGastos(data);
+                    Estadisticas.DataGastos = data;
                     Estadisticas.ArmarTortaGastos(data);
+                    if(Estadisticas.DataPagos){
+                        Estadisticas.ArmarGraficaIngresosEgresos();
+                    }
                 }
                 Toolbox.StopLoader();
             });
@@ -34,7 +39,11 @@ var Estadisticas = {
             data: { func: "get_lista_pagos" }
         }).done(function (data) {
                 if (data && !data.error) {
-                    Estadisticas.ArmarGraficaIngresos(data);
+                    Estadisticas.DataPagos = data;
+                    if(Estadisticas.DataGastos){
+                        Estadisticas.ArmarGraficaIngresosEgresos();
+                    }
+
                 }
                 Toolbox.StopLoader();
             });
@@ -178,36 +187,70 @@ var Estadisticas = {
             title: "Gastos totales por rubro ($)"
         });
     },
-    ArmarGraficaIngresos: function(data){
+    ArmarGraficaIngresosEgresos: function(){
 
-        //parse data
+        var dataSource = [];
         var auxData = {};
-        for(var i=0;i<data.length;i++){
 
-            var mes = new Date(data[i].fecha_pago);
+        //parse data PAGOS
+        for(var i=0;i<Estadisticas.DataPagos.length;i++){
+
+            var mes = new Date(Estadisticas.DataPagos[i].fecha_pago);
             var year = mes.getFullYear();
             mes = Toolbox.NombreMesesEsp[mes.getMonth()+1] + " " + year;
 
             if(!auxData[mes]){
                 auxData[mes] = 0;
             }
-            auxData[mes] += Number(data[i].valor);
+            auxData[mes] += Number(Estadisticas.DataPagos[i].valor);
         }
-        var dataSource = [];
         $.each(auxData, function( index, value ) {
             var mes = index;
-            dataSource.push({mes: mes, valor: value});
+            dataSource.push({mes: mes, ingresos: value});
         });
+
+        //parse data GASTOS
+        auxData = {};
+        for(var i=0;i<Estadisticas.DataGastos.length;i++){
+
+            var mes = new Date(Estadisticas.DataGastos[i].fecha_pago);
+            var year = mes.getFullYear();
+            mes = Toolbox.NombreMesesEsp[mes.getMonth()+1] + " " + year;
+
+            if(!auxData[mes]){
+                auxData[mes] = 0;
+            }
+            auxData[mes] += Number(Estadisticas.DataGastos[i].valor);
+        }
+        $.each(auxData, function( index, value ) {
+
+            var mes = index;
+            if(value < 0){
+                dataSource.push({mes: mes, ingresos: value*-1});
+            }else{
+                dataSource.push({mes: mes, egresos: value});
+            }
+        });
+
+        //console.log(dataSource);
 
         $("#torta-ingresos").dxChart({
             dataSource: dataSource,
-            series: {
+            series: [
+                {
                 argumentField: "mes",
-                valueField: "valor",
+                valueField: "ingresos",
                 name: "Ingresos",
                 type: "bar",
-                color: '#ffa500'
-            },
+                color: '#7EC16A'
+                },
+                {
+                    argumentField: "mes",
+                    valueField: "egresos",
+                    name: "Egresos",
+                    type: "bar",
+                    color: '#C46A6A'
+                }],
             tooltip: {
                 enabled: true,
                 customizeText: function(value){
@@ -222,7 +265,7 @@ var Estadisticas = {
                     text: "pesos"
                 }
             },
-            title: "Ingresos totales (por mes)"
+            title: "Ingresos/Egresos (por mes)"
         });
     },
     ArmarGraficaEntregas: function(data){
@@ -268,7 +311,7 @@ var Estadisticas = {
             fields.push({valueField: index, name: index});
         });
 
-        console.log(dataSource);
+        //console.log(dataSource);
 
         /*
         var dataSource = [

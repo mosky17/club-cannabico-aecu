@@ -6,6 +6,7 @@ body {
 
 .container {
     position: relative;
+    min-height: 600px;
 }
 
 .box {
@@ -67,6 +68,8 @@ font-weight: normal;
 .modal-body h4 {
     float: left;
     font-weight: normal;
+    width: 70px;
+    margin: 5px 0 10px;
 }
 
 .modal-body input,
@@ -78,6 +81,7 @@ font-weight: normal;
 
 .modalListaRow {
     min-height: 40px;
+    display: table;
 }
 
 #admin_header_name {
@@ -93,6 +97,7 @@ font-weight: normal;
 
 .controlesLista {
     position: relative;
+    min-height: 35px;
 }
 
 .totalRegistros {
@@ -256,7 +261,7 @@ height: 28px;
 #exportarListaDropdown {
     position: absolute;
     top: 0px;
-    right: 0px;
+    margin: 0 10px;
 }
 
 .red-arrow {
@@ -287,4 +292,52 @@ height: 28px;
     background-color: #fff;
     margin: 0 0 30px;
     padding: 20px;
+}
+
+#socioIngresarPagoRazon {
+    width: 130px;
+    float: left;
+}
+
+#socioIngresarPagoRazonMensualidadMes {
+    float: left;
+    width: 120px;
+}
+
+#socioIngresarPagoRazonMensualidadAnio {
+    float: left;
+    width: 80px;
+}
+
+.logo_login {
+    width: 100%;
+}
+
+.footer {
+    width: 100%;
+    background-color: #555;
+    text-align: center;
+    display: table;
+    padding: 22px 0;
+    color: #888;
+    bottom: 0;
+}
+
+.footer a {
+    color: #888;
+}
+
+.footer .logo {
+    width: 50px;
+    background-color: #333;
+    padding: 5px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.footer .copy{
+    display: inline-block;
+    font-weight: normal;
+    font-size: 11px;
+    margin: 0 10px;
 }

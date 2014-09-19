@@ -19,9 +19,9 @@ if (Auth::access_level() < 0) {
 
     <head>
         <title>Club Social de Cannabis #1</title>
-        <script src="scripts/globalize.js"></script>
-        <script src="scripts/dx.chartjs.js"></script>
-        <script src="scripts/estadisticas.js"></script>
+        <script src="scripts1.0.1/globalize.js"></script>
+        <script src="scripts1.0.1/dx.chartjs.js"></script>
+        <script src="scripts1.0.1/estadisticas.js"></script>
     </head>
 
     <body>
@@ -33,4 +33,8 @@ if (Auth::access_level() < 0) {
     </div>
     </body>
 
-<?php } ?>
+<?php }
+
+require_once(dirname(__FILE__) . '/footer.php');
+
+?>

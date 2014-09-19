@@ -109,12 +109,18 @@ var Toolbox = {
     },
     TransformSpecialTag: function (text) {
 
+        var text2 = "";
+        if(text.indexOf("mensualidad")==0){
+            text2 = text.substring(13, text.length -1);
+            text = "mensualidad";
+        }
+
         switch (text) {
             case "matricula":
                 return '<span class="label" style="background-color:#A8BB19;">Matr&iacutecula</span>';
                 break;
             case "mensualidad":
-                return '<span class="label" style="background-color:#2E5894;">Mensualidad</span>';
+                return '<span class="label" style="background-color:#2E5894;">' + text2 + '</span>';
                 break;
             case "transferencia_brou":
                 return '<span class="label" style="background-color:#72A0C1;">BROU</span>';
@@ -136,8 +142,8 @@ var Toolbox = {
             case "Instalaciones":
                 return '<span class="label label-danger" style="background-color:#d91e88;">Instalaciones</span>';
                 break;
-            case "Gastos Bancarios":
-                return '<span class="label" style="background-color:#e35000;">Gastos Bancarios</span>';
+            case "Administracion":
+                return '<span class="label" style="background-color:#e35000;">Administraci&oacute;n</span>';
                 break;
             case "Jardineros":
                 return '<span class="label" style="background-color:#1e1e1e;">Jardineros</span>';

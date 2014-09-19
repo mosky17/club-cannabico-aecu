@@ -19,7 +19,7 @@ if (Auth::access_level() < 0) {
 
     <head>
         <title>Club Social de Cannabis #1</title>
-        <script src="scripts/pago.js"></script>
+        <script src="scripts1.0.1/pago.js"></script>
     </head>
 
     <body>
@@ -66,4 +66,8 @@ if (Auth::access_level() < 0) {
 
     </body>
 
-<?php } ?>
+<?php }
+
+require_once(dirname(__FILE__) . '/footer.php');
+
+?>

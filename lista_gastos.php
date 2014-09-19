@@ -19,7 +19,7 @@ if (Auth::access_level() < 0) {
 
     <head>
         <title>Club Social de Cannabis #1</title>
-        <script src="scripts/lista_gastos.js"></script>
+        <script src="scripts1.0.1/lista_gastos.js"></script>
     </head>
 
     <body>
@@ -86,7 +86,7 @@ if (Auth::access_level() < 0) {
                     <option value="Energia">Energ&iacute;a</option>
                     <option value="Equipamiento">Equipamiento</option>
                     <option value="Instalaciones">Instalaciones</option>
-                    <option value="Gastos Bancarios">Gastos Bancarios</option>
+                    <option value="Administracion">Administraci&oacute;n</option>
                     <option value="Jardineros">Jardineros</option>
                     <option value="Locacion">Locaci&oacute;n</option>
                     <option value="Transporte">Transporte</option>
@@ -95,12 +95,12 @@ if (Auth::access_level() < 0) {
             </div>
             <div class="modalListaRow">
                 <h4>Raz&oacute;n</h4>
-                <textarea style="width: 400px; height: 100px; max-width: 400px; max-height: 100px;"
+                <textarea style="width: 400px; height: 50px; max-width: 400px; max-height: 100px;"
                           id="listaIngresarGastoRazon"></textarea>
             </div>
             <div class="modalListaRow">
                 <h4>Notas</h4>
-                <textarea style="width: 400px; height: 100px; max-width: 400px; max-height: 100px;"
+                <textarea style="width: 400px; height: 50px; max-width: 400px; max-height: 100px;"
                           id="listaIngresarGastoNotas"></textarea>
             </div>
         </div>
@@ -113,4 +113,8 @@ if (Auth::access_level() < 0) {
 
     </body>
 
-<?php } ?>
+<?php }
+
+require_once(dirname(__FILE__) . '/footer.php');
+
+?>

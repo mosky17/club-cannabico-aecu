@@ -13,7 +13,7 @@ class Auth {
     }
 
 	static public function connect(){
-		mysql_pconnect("localhost", DB::db_username, DB::db_passwd)or die("cannot connect");
+		mysql_pconnect(DB::db_server, DB::db_username, DB::db_passwd)or die("cannot connect");
 		mysql_select_db(DB::db_name)or die("cannot select DB");
 	}
 

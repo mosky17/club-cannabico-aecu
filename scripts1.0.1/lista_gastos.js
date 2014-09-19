@@ -115,7 +115,7 @@ var ListaGastos = {
         return error == undefined;
     },
     GetTotales: function(){
-        Toolbox.ShowLoaderModal();
+        Toolbox.ShowLoader();
         $.ajax({
             dataType: 'json',
             type: "POST",

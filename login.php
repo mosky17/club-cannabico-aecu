@@ -16,17 +16,17 @@ require_once(dirname(__FILE__).'/config.php');
     <meta charset="utf-8">
     <title>Club Social de Cannabis #1</title>
 	<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="scripts/toolbox.js"></script>
-	<script src="scripts/login.js"></script>
+	<script src="scripts1.0.1/toolbox.js"></script>
+	<script src="scripts1.0.1/login.js"></script>
 
     <!-- Le styles -->
-    <link href="styles/bootstrap3.css" rel="stylesheet">
+    <link href="styles1.0.1/bootstrap3.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="styles/main.css" rel="stylesheet">
+    <link href="styles1.0.1/main.css" rel="stylesheet">
     <style type="text/css">
       /* Override some defaults */
       body {
-        background-color: #eee;
+        background-color: #333;
           padding-top: 40px;
       }
       .container {
@@ -39,7 +39,7 @@ require_once(dirname(__FILE__).'/config.php');
       /* The white background content wrapper */
       .container > .content {
         background-color: #fff;
-        padding: 20px;
+        padding: 0 20px;
         margin: 0 -20px;
         -webkit-border-radius: 10px 10px 10px 10px;
            -moz-border-radius: 10px 10px 10px 10px;
@@ -50,8 +50,18 @@ require_once(dirname(__FILE__).'/config.php');
       }
 
 	  .login-form {
-		margin-left: 65px;
+          text-align: center;
+          padding: 20px 20px 5px;
 	  }
+
+      .login-form input[type=text],
+      .login-form input[type=password] {
+          border: 1px solid #ccc;
+          border-radius: 3px;
+          padding: 8px;
+          width: 100%;
+          font-size: 15px;
+      }
 
 	  legend {
 		margin-right: -50px;
@@ -64,10 +74,10 @@ require_once(dirname(__FILE__).'/config.php');
 </head>
 <body>
   <div class="container">
+      <img class="logo_login" src="<?php echo $GLOBALS['logo_url']; ?>">
     <div class="content">
       <div class="row">
         <div class="login-form">
-          <h2>Ingresar</h2>
 	  <div id="feedbackContainer"></div>
           <form id="loginForm" action="<?php echo $GLOBALS['domain']; ?>" method="POST">
             <fieldset>

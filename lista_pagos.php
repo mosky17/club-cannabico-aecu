@@ -12,7 +12,7 @@ if (Auth::access_level() < 0) {
 
     <head>
         <title>Club Social de Cannabis #1</title>
-        <script src="scripts/lista_pagos.js"></script>
+        <script src="scripts1.0.1/lista_pagos.js"></script>
     </head>
 
     <body>
@@ -28,6 +28,8 @@ if (Auth::access_level() < 0) {
                     <li><a tabindex="-1" href="#" onClick="ListaPagos.ExportarComoListaPagosPorSocio();">Como lista de pagos
                             por socio</a></li>
                     <li><a tabindex="0" href="#" onClick="ListaPagos.ExportarComoListaTotalPagoPorSocio();">Como total pago por socio</a></li>
+                    <li><a tabindex="1" href="#" onClick="ListaPagos.ExportarComoListaPagosPorMes();">Como lista de pagos
+                            por mes</a></li>
                 </ul>
             </div>
         </div>
@@ -52,4 +54,8 @@ if (Auth::access_level() < 0) {
 
     </body>
 
-<?php } ?>
+<?php }
+
+require_once(dirname(__FILE__) . '/footer.php');
+
+?>

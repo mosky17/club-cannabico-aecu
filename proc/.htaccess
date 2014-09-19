@@ -1,4 +1,4 @@
-<Files "cron_estados.php">
+<Files "cron_recordatorio_pagos.php">
 Order Allow,Deny
 Deny from all
 </Files>

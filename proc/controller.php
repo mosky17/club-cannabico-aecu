@@ -144,6 +144,9 @@ function exportar_caja(){
 function exportar_pago_total_por_socio(){
     Exportar::exportar_pago_total_por_socio();
 }
+function exportar_pagos_por_mes(){
+    Exportar::exportar_pagos_por_mes();
+}
 
 //************** PROC ********************
 

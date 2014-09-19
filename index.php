@@ -11,7 +11,7 @@ if(Auth::access_level()<0) { ?>
 
 <head>
     <title><?php echo $GLOBALS['name']; ?></title>
-	<script src="scripts/index.js"></script>
+	<script src="scripts1.0.1/index.js"></script>
 </head>
 
 <body>
@@ -112,4 +112,8 @@ if(Auth::access_level()<0) { ?>
 
 </body>
 
-<?php } ?>
+<?php }
+
+require_once(dirname(__FILE__) . '/footer.php');
+
+?>
