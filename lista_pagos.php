@@ -11,8 +11,7 @@ if (Auth::access_level() < 0) {
 <?php } else { ?>
 
     <head>
-        <title>Club Social de Cannabis #1</title>
-        <script src="scripts1.0.1/lista_pagos.js"></script>
+        <script src="scripts1.0.2/lista_pagos.js"></script>
     </head>
 
     <body>

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Martin
- * Date: 03/08/13
- * Time: 07:26 PM
- * To change this template use File | Settings | File Templates.
- */
 
 require_once(dirname(__FILE__) . '/layout.php');
 require_once(dirname(__FILE__) . '/proc/classes/auth.php');
@@ -18,10 +11,10 @@ if (Auth::access_level() < 0) {
 <?php } else { ?>
 
     <head>
-        <title>Club Social de Cannabis #1</title>
-        <script src="scripts1.0.1/globalize.js"></script>
-        <script src="scripts1.0.1/dx.chartjs.js"></script>
-        <script src="scripts1.0.1/estadisticas.js"></script>
+
+        <script src="scripts1.0.2/globalize.js"></script>
+        <script src="scripts1.0.2/dx.chartjs.js"></script>
+        <script src="scripts1.0.2/estadisticas.js"></script>
     </head>
 
     <body>

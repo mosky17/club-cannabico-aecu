@@ -10,8 +10,7 @@ if(Auth::access_level()<0) { ?>
 <?php }else{ ?>
 
 <head>
-    <title><?php echo $GLOBALS['name']; ?></title>
-	<script src="scripts1.0.1/index.js"></script>
+	<script src="scripts1.0.2/index.js"></script>
 </head>
 
 <body>

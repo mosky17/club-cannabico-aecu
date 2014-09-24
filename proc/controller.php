@@ -8,6 +8,7 @@ require_once(dirname(__FILE__).'/classes/pago.php');
 require_once(dirname(__FILE__).'/classes/gasto.php');
 require_once(dirname(__FILE__).'/classes/exportar.php');
 require_once(dirname(__FILE__).'/classes/entrega.php');
+require_once(dirname(__FILE__).'/classes/admin.php');
 
 //************** AUTH ********************
 
@@ -130,6 +131,25 @@ function get_lista_entregas(){
 }
 function ingresar_entrega(){
     $result = Entrega::ingresar_entrega($_POST['fecha'],$_POST['id_socio'],$_POST['gramos'],$_POST['variedad'],$_POST['notas']);
+    echo json_encode($result);
+}
+
+//************** ADMINS ********************
+
+function get_lista_admins(){
+    $result = Admin::get_lista_admins();
+    echo json_encode($result);
+}
+function ingresar_admin(){
+    $result = Admin::ingresar_admin($_POST['nombre'],$_POST['email'],$_POST['clave'],$_POST['permiso_pagos']);
+    echo json_encode($result);
+}
+function update_admin(){
+    $result = Admin::update_admin($_POST['id'],$_POST['nombre'],$_POST['email'],$_POST['clave'],$_POST['permiso_pagos']);
+    echo json_encode($result);
+}
+function delete_admin(){
+    $result = Admin::delete_admin($_POST['id']);
     echo json_encode($result);
 }
 
