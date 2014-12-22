@@ -349,3 +349,31 @@ height: 28px;
     font-size: 20px;
     margin: 30px 0;
 }
+
+.lista-socios-show {
+    margin: 0;
+}
+
+.macroentrega_socio_label {
+    float: left;
+    margin: 2px 0 0 5px;
+}
+
+#macroentrega_tabla_socios td{
+    width: 33%;
+}
+
+#macroentrega_tabla_socios {
+    width: 446px;
+}
+
+.macroentrega_socio_chk {
+    margin-left: 0 !important;
+}
+
+.container_macroentrega_socios {
+    max-height: 170px;
+    overflow-y: scroll;
+    margin-left: 20px;
+    margin-top: 10px;
+}

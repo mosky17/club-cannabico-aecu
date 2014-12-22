@@ -62,6 +62,12 @@ class Socio
         return Socio::mysql_to_instances($q);
     }
 
+    static public function get_socios_suspendidos()
+    {
+        $q = mysql_query("SELECT * FROM socios WHERE activo=0 ORDER BY numero;");
+        return Socio::mysql_to_instances($q);
+    }
+
     static public function get_socio($id)
     {
         $q = mysql_query("SELECT * FROM socios WHERE id = " . $id . ";");

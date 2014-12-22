@@ -17,17 +17,17 @@ class Entrega {
     public $id;
     public $id_socio;
     public $gramos;
-    public $variedad;
+    public $id_genetica;
     public $notas;
     public $cancelado;
 
-    function __construct($id, $fecha, $id_socio, $gramos, $variedad, $notas, $cancelado) {
+    function __construct($id, $fecha, $id_socio, $gramos, $id_genetica, $notas, $cancelado) {
 
         $this->id = $id;
         $this->fecha = $fecha;
         $this->id_socio = $id_socio;
         $this->gramos = $gramos;
-        $this->variedad = $variedad;
+        $this->id_genetica = $id_genetica;
         $this->notas = $notas;
         $this->cancelado = $cancelado;
 
@@ -38,7 +38,7 @@ class Entrega {
         $return = array();
         if($result){
             while ($row = mysql_fetch_array($result)) {
-                $instance = new Entrega($row['id'], $row['fecha'], $row['id_socio'], $row['gramos'], $row['variedad'], $row['notas'], $row['cancelado']);
+                $instance = new Entrega($row['id'], $row['fecha'], $row['id_socio'], $row['gramos'], $row['id_genetica'], $row['notas'], $row['cancelado']);
                 $return[] = $instance;
             }
         }
@@ -78,18 +78,17 @@ class Entrega {
         return Entrega::mysql_to_instances($q);
     }
 
-    static public function ingresar_entrega($fecha, $id_socio, $gramos, $variedad, $notas){
+    static public function ingresar_entrega($fecha, $id_socio, $gramos, $id_genetica, $notas){
 
-        $q = mysql_query("INSERT INTO entregas (fecha, id_socio, gramos, variedad, notas) VALUES ('" . htmlspecialchars(mysql_real_escape_string($fecha)) . "', " .
-        htmlspecialchars(mysql_real_escape_string($id_socio)) . ", '" . htmlspecialchars(mysql_real_escape_string($gramos)) . "', '" .
-        htmlspecialchars(mysql_real_escape_string($variedad)) . "', '" . htmlspecialchars(mysql_real_escape_string($notas)) . "');");
+        $q = mysql_query("INSERT INTO entregas (fecha, id_socio, gramos, id_genetica, notas) VALUES ('" . htmlspecialchars(mysql_real_escape_string($fecha)) . "', " .
+        htmlspecialchars(mysql_real_escape_string($id_socio)) . ", '" . htmlspecialchars(mysql_real_escape_string($gramos)) . "', " .
+        $id_genetica . ", '" . htmlspecialchars(mysql_real_escape_string($notas)) . "');");
 
         if (mysql_affected_rows() == 1) {
             return true;
         } else {
             return array("error" => "Error al ingresar entrega");
         }
-
     }
 
 }

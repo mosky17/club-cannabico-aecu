@@ -15,13 +15,13 @@ require_once(dirname(__FILE__).'/config.php');
 <!DOCTYPE html>
 <head>
     <title><?php echo $GLOBALS['name']; ?></title>
-    <link href="styles1.0.2/bootstrap_old.css" rel="stylesheet" media="screen">
+    <link href="styles1.0.4/bootstrap_old.css" rel="stylesheet" media="screen">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
-	<link href="styles1.0.2/main.css" rel="stylesheet">
+	<link href="styles1.0.4/main.css" rel="stylesheet">
 	<script src="http://code.jquery.com/jquery.js"></script>
-    <script src="scripts1.0.2/bootstrap.js"></script>
-	<script src="scripts1.0.2/toolbox.js"></script>
-	<script src="scripts1.0.2/jquery.maskedinput.js"></script>
+    <script src="scripts1.0.4/bootstrap.js"></script>
+	<script src="scripts1.0.4/toolbox.js"></script>
+	<script src="scripts1.0.4/jquery.maskedinput.js"></script>
 </head>
 
 <div id="headerNavigation" class="navbar navbar-inverse navbar-fixed-top">
@@ -32,6 +32,7 @@ require_once(dirname(__FILE__).'/config.php');
             <li class="nav_lista_link" id="nav_lista_pagos"><a href="<?php echo $GLOBALS['domain']; ?>/lista_pagos.php">Pagos</a></li>
             <li class="nav_lista_link" id="nav_lista_gastos"><a href="<?php echo $GLOBALS['domain']; ?>/lista_gastos.php">Caja</a></li>
             <li class="nav_lista_link" id="nav_lista_estadisticas"><a href="<?php echo $GLOBALS['domain']; ?>/estadisticas.php">Estadisticas</a></li>
+            <li class="nav_lista_link" id="nav_lista_entregas"><a href="<?php echo $GLOBALS['domain']; ?>/lista_entregas.php">Entregas</a></li>
             <li class="nav_lista_link" id="nav_lista_admins"><a href="<?php echo $GLOBALS['domain']; ?>/lista_admins.php">Admins</a></li>
 	    </ul>
 

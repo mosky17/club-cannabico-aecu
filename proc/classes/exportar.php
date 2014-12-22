@@ -166,7 +166,7 @@ class Exportar {
         $pagosPorMes = array();
         $socios = array();
 
-        $result = mysql_query("SELECT * FROM pagos p, socios s WHERE p.id_socio = s.id AND p.cancelado=0 ORDER BY s.numero");
+        $result = mysql_query("SELECT * FROM pagos p, socios s WHERE s.activo=1 AND p.id_socio = s.id AND p.cancelado=0 ORDER BY s.numero");
 
         if($result){
             while ($row = mysql_fetch_array($result)) {
@@ -196,7 +196,11 @@ class Exportar {
 
                     //add pago por mes
                     if(array_key_exists($row['numero'],$pagosPorMes)){
-                        $pagosPorMes[$row['numero']][$mes] = round($row['valor']);
+                        if(array_key_exists($mes,$pagosPorMes[$row['numero']])){
+                            $pagosPorMes[$row['numero']][$mes] = $pagosPorMes[$row['numero']][$mes] + round($row['valor']);
+                        }else{
+                            $pagosPorMes[$row['numero']][$mes] = round($row['valor']);
+                        }
                     }else{
                         $pagosPorMes[$row['numero']] = array($mes=>round($row['valor']));
                     }

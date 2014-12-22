@@ -157,6 +157,9 @@ var Toolbox = {
             case "Otro":
                 return '<span class="label label-default">Otro</span>';
                 break;
+            case "Devoluciones":
+                return '<span class="label label-default">Devoluciones</span>';
+                break;
 
             //ELSE
             default:

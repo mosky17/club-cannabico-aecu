@@ -11,7 +11,7 @@ if (Auth::access_level() < 0) {
 <?php } else { ?>
 
     <head>
-        <script src="scripts1.0.2/socio.js"></script>
+        <script src="scripts1.0.4/socio.js"></script>
     </head>
 
     <body>
@@ -102,7 +102,7 @@ if (Auth::access_level() < 0) {
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Gramos.</th>
+                        <th>Peso (gr)</th>
                         <th>Fecha Entregado</th>
                         <th>Variedad</th>
                         <th>Notas</th>
@@ -218,10 +218,7 @@ if (Auth::access_level() < 0) {
             </div>
             <div class="modalListaRow">
                 <h4>Variedad</h4>
-                <select id="socioIngresarEntregaVariedad">
-                    <option value="">- seleccionar variedad -</option>
-                    <option value="Varias">Varias</option>
-                </select>
+                <select id="socioIngresarEntregaVariedad"></select>
             </div>
             <div class="modalListaRow">
                 <h4>Notas</h4>

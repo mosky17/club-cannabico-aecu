@@ -9,6 +9,7 @@ require_once(dirname(__FILE__).'/classes/gasto.php');
 require_once(dirname(__FILE__).'/classes/exportar.php');
 require_once(dirname(__FILE__).'/classes/entrega.php');
 require_once(dirname(__FILE__).'/classes/admin.php');
+require_once(dirname(__FILE__).'/classes/genetica.php');
 
 //************** AUTH ********************
 
@@ -28,6 +29,14 @@ function logout(){
 function get_lista_socios(){
 	$result = Socio::get_lista_socios();
 	echo json_encode($result);
+}
+function get_socios_activos(){
+    $result = Socio::get_socios_activos();
+    echo json_encode($result);
+}
+function get_socios_suspendidos(){
+    $result = Socio::get_socios_suspendidos();
+    echo json_encode($result);
 }
 function get_tags(){
 	$result = Socio::get_tags();
@@ -105,6 +114,9 @@ function get_gasto(){
 function cancelar_gasto(){
     $result = Gasto::cancelar_gasto($_POST['id']);
     echo json_encode($result);
+}function update_rubro_gasto(){
+    $result = Gasto::update_rubro_gasto($_POST['id'],$_POST['rubro']);
+    echo json_encode($result);
 }
 function ingresar_gasto(){
     $result = Gasto::ingresar_gasto($_POST['valor'],$_POST['fecha_pago'],$_POST['razon'],$_POST['notas'],$_POST['rubro']);
@@ -152,6 +164,31 @@ function delete_admin(){
     $result = Admin::delete_admin($_POST['id']);
     echo json_encode($result);
 }
+
+//************** GENETICAS ********************
+
+function get_lista_geneticas(){
+    $result = Genetica::get_lista_geneticas();
+    echo json_encode($result);
+}
+function ingresar_genetica(){
+    $result = Genetica::ingresar_genetica($_POST['nombre'],$_POST['origen'],$_POST['detalles']);
+    echo json_encode($result);
+}
+function update_genetica(){
+    $result = Genetica::update_genetica($_POST['id'],$_POST['nombre'],$_POST['origen'],$_POST['detalles']);
+    echo json_encode($result);
+}
+function delete_genetica(){
+    $result = Genetica::delete_genetica($_POST['id']);
+    echo json_encode($result);
+}
+
+function get_producido_por_genetica(){
+    $result = Genetica::get_producido_por_genetica($_POST['id']);
+    echo json_encode($result);
+}
+
 
 //************** EXPORTAR ********************
 

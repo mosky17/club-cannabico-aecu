@@ -18,7 +18,7 @@ if (Auth::access_level() < 0) {
 <?php } else { ?>
 
     <head>
-        <script src="scripts1.0.2/pago.js"></script>
+        <script src="scripts1.0.4/pago.js"></script>
     </head>
 
     <body>
@@ -59,6 +59,7 @@ if (Auth::access_level() < 0) {
             <div style="display:none;" class="span12" id="pagoBtnCancelarContainer">
                 <div class="btn btn-danger" id="pagoBtnCancelar">Cancelar Pago</div>
             </div>
+
         </div>
 
     </div>

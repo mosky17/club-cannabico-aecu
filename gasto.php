@@ -18,7 +18,7 @@ if (Auth::access_level() < 0) {
 <?php } else { ?>
 
     <head>
-        <script src="scripts1.0.2/gasto.js"></script>
+        <script src="scripts1.0.4/gasto.js"></script>
     </head>
 
     <body>
@@ -64,6 +64,24 @@ if (Auth::access_level() < 0) {
                     <h4>Socio</h4>
 
                     <div id="gastoDatosValorSocio" class="socioDatosValor"></div>
+                </div>
+                <div class="socioDatosField">
+                    <h4>Rubro</h4>
+
+                    <div id="gastoDatosValorRubro" class="socioDatosValor">
+                        <select id="listaRubrosGastos" onchange="Gasto.EditRubro();">
+                            <option value="Cultivo">Cultivo</option>
+                            <option value="Energia">Energ&iacute;a</option>
+                            <option value="Equipamiento">Equipamiento</option>
+                            <option value="Instalaciones">Instalaciones</option>
+                            <option value="Administracion">Administraci&oacute;n</option>
+                            <option value="Jardineros">Jardineros</option>
+                            <option value="Locacion">Locaci&oacute;n</option>
+                            <option value="Transporte">Transporte</option>
+                            <option value="Devoluciones">Devoluciones</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div style="display:none;" class="span12" id="gastoBtnCancelarContainer">

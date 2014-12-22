@@ -67,6 +67,18 @@ class Gasto {
         }
     }
 
+    static public function update_rubro_gasto($id,$rubro)
+    {
+        $q = mysql_query("UPDATE gastos SET rubro='".$rubro."' WHERE id=".$id);
+        if (mysql_affected_rows() == 1) {
+            return true;
+        } else {
+            return array("error" => "Gasto no modificado");
+        }
+    }
+
+
+
     static public function get_lista_gastos()
     {
         $q = mysql_query("SELECT * FROM gastos WHERE cancelado=0 ORDER BY fecha_pago;");

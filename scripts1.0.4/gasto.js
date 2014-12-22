@@ -33,6 +33,7 @@ var Gasto = {
                     $("#gastoDatosValorFechaGasto").html('<p>' + Toolbox.MysqlDateToDate(data.fecha_pago) + "</p>");
                     $("#gastoDatosValorNotas").html('<p>' + data.notas + "</p>");
                     $("#gastoDatosValorRazon").html('<p>' + Toolbox.TransformSpecialTag(data.razon) + "</p>");
+                    $("#listaRubrosGastos").val(data.rubro);
 
                 } else {
                     if (data && data.error) {
@@ -68,7 +69,33 @@ var Gasto = {
                     Toolbox.StopLoader();
                 });
         }
-    }
+    },
+    EditRubro: function () {
+
+        var confirmacion = confirm('Seguro que queres cambiar el rubro de este gasto?');
+
+        if (confirmacion) {
+            Toolbox.ShowLoader();
+            $.ajax({
+                dataType: 'json',
+                type: "POST",
+                url: "proc/controller.php",
+                data: { func: "update_rubro_gasto", id: Gasto.IdGasto, rubro:$("#listaRubrosGastos").val() }
+            }).done(function (data) {
+                if (data && !data.error) {
+                    Gasto.LoadGasto();
+                } else {
+                    if (data && data.error) {
+                        Toolbox.ShowFeedback('feedbackContainer', 'error', data.error);
+                    } else {
+                        Toolbox.ShowFeedback('feedbackContainer', 'error', 'Unexpected error');
+                    }
+                }
+                Toolbox.StopLoader();
+            });
+        }
+    },
+
 }
 
 $(document).ready(function () {

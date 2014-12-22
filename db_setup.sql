@@ -27,9 +27,9 @@ CREATE TABLE IF NOT EXISTS `config` (
 CREATE TABLE IF NOT EXISTS `entregas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_socio` int(11) NOT NULL,
-  `gramos` decimal(10,0) NOT NULL,
+  `gramos` decimal(10,2) NOT NULL,
   `notas` text NOT NULL,
-  `variedad` varchar(100) NOT NULL,
+  `id_genetica` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `cancelado` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
@@ -90,6 +90,14 @@ CREATE TABLE IF NOT EXISTS `tags` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 INSERT INTO `tags` (`id`, `nombre`, `color`) VALUES (NULL, 'Medicinal', '42E216'), (NULL, 'Pago Diferenciado', 'BF5213');
+
+CREATE TABLE IF NOT EXISTS `geneticas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `origen` varchar(200) NOT NULL,
+  `detalles` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

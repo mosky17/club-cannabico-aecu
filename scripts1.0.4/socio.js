@@ -4,6 +4,7 @@ var Socio = {
     IdSocio: null,
     Tags: {},
     SocioData: {},
+    Geneticas: null,
     GetTags: function () {
         Toolbox.ShowLoader();
 
@@ -34,6 +35,30 @@ var Socio = {
                 }
                 Toolbox.StopLoader();
             });
+    },
+    LoadGeneticas: function(){
+        Toolbox.ShowLoader();
+
+        $.ajax({
+            dataType: 'json',
+            type: "POST",
+            url: "proc/controller.php",
+            data: { func: "get_lista_geneticas" }
+        }).done(function (data) {
+            if (data && !data.error) {
+                Socio.Geneticas = {};
+                $('#socioIngresarEntregaVariedad').html("");
+                for(var i=0;i<data.length;i++){
+                    Socio.Geneticas[data[i].id] = data[i];
+
+                    //load macroentregas_select
+                    $('#socioIngresarEntregaVariedad').append('<option value="' + data[i].id + '">' + data[i].nombre + '</option>');
+
+                }
+            }
+            Socio.LoadEntregas();
+            Toolbox.StopLoader();
+        });
     },
     LoadNewForm: function () {
 
@@ -428,9 +453,16 @@ var Socio = {
                     $('#listaEntregasSocioTabla').html("");
                     for (var i = 0; i < data.length; i++) {
 
+                        var genetica = Socio.Geneticas[data[i].id_genetica];
+                        if(genetica){
+                            genetica = genetica.nombre;
+                        }else{
+                            genetica = "";
+                        }
+
                         $('#listaEntregasSocioTabla').append('<tr onClick=""><td>' + data[i].gramos + '</td>' +
                             '<td>' + Toolbox.MysqlDateToDate(data[i].fecha) + '</td>' +
-                            '<td>' + Toolbox.TransformSpecialTag(data[i].variedad) + '</td>' +
+                            '<td>' + Toolbox.TransformSpecialTag(genetica) + '</td>' +
                             '<td>' + data[i].notas + '</td></tr>');
                     }
 
@@ -489,7 +521,7 @@ $(document).ready(function () {
     });
 
     Socio.LoadPagos();
-    Socio.LoadEntregas();
+    Socio.LoadGeneticas();
 
 
 });

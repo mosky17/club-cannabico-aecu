@@ -53,7 +53,13 @@ var Index = {
                 Toolbox.StopLoader();
             });
     },
+    SociosAMostrar:"activos",
     LoadListaSocios: function () {
+
+        var func = 'get_socios_activos';
+        if(Index.SociosAMostrar == 'suspendidos'){
+            func = 'get_socios_suspendidos';
+        }
 
         Toolbox.ShowLoader();
 
@@ -61,7 +67,7 @@ var Index = {
             dataType: 'json',
             type: "POST",
             url: "proc/controller.php",
-            data: { func: "get_lista_socios" }
+            data: { func: func }
         }).done(function (data) {
                 if (data && !data.error) {
                     $('#listaSociosTabla').html("");
@@ -70,11 +76,14 @@ var Index = {
 
                     for (var i = 0; i < data.length; i++) {
 
-                        if(data[i].activo == true){
+                        //if(data[i].activo == true){
 
                             countSocios += 1;
 
                             var tagsHtml = "";
+                            if(data[i].activo != true){
+                                tagsHtml += '<span class="label label-important" style="margin-right: 3px;">SUSPENDIDO</span>';
+                            }
                             for (var j = 0; j < data[i].tags.length; j++) {
                                 if (data[i].tags[j] && data[i].tags[j] != '' && Index.Tags[data[i].tags[j]]) {
                                     tagsHtml += '<span class="label socioTag" style="background-color:' + Index.Tags[data[i].tags[j]].color + '">' + Index.Tags[data[i].tags[j]].nombre + '</span>';
@@ -86,7 +95,7 @@ var Index = {
                                 '<td>' + data[i].email + '</td>' +
                                 '<td>' + Toolbox.MysqlDateToDate(data[i].fecha_inicio) + '</td>' +
                                 '<td>' + tagsHtml + '</td></tr>');
-                        }
+                        //}
                     }
 
                     $('#totalRegistrosSocios').html("Total Registros: " + countSocios);
@@ -190,6 +199,10 @@ var Index = {
                 }
                 Toolbox.StopLoaderModal();
             });
+    },
+    CambiarSociosAMostrar: function(){
+        Index.SociosAMostrar = $('.lista-socios-show').val();
+        Index.LoadListaSocios();
     }
 }
 

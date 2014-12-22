@@ -12,9 +12,9 @@ if (Auth::access_level() < 0) {
 
     <head>
 
-        <script src="scripts1.0.2/globalize.js"></script>
-        <script src="scripts1.0.2/dx.chartjs.js"></script>
-        <script src="scripts1.0.2/estadisticas.js"></script>
+        <script src="scripts1.0.4/globalize.js"></script>
+        <script src="scripts1.0.4/dx.chartjs.js"></script>
+        <script src="scripts1.0.4/estadisticas.js"></script>
     </head>
 
     <body>

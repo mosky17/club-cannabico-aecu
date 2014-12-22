@@ -59,7 +59,7 @@ foreach($socios as $socio){
     //send recordatorio
     $email_text = "";
     $email_html = '<b>Estimado Socio,</b><br><br>' .
-        'Este es un recordatorio de que tu membres&iacute;a vence el 15 de ' . $MONTH_NAMES[$current_month] . ', la cuota tiene un valor de $1500 y una vez vencida va a incurrir en un recargo del 10%.<br><br>'.
+        'Este es un recordatorio de que tu membres&iacute;a vence el 15 de ' . $MONTH_NAMES[$current_month] . ', la cuota tiene un valor de <b>$1800</b> y una vez vencida va a incurrir en un recargo del 10%. <b>Recordamos que por dispocici&oacute;n de asamblea la cuota fue elevada a $1800 y se abri&oacute; la posibilidad de una reducci&oacute;n de la misma a $1200 a cambio de por lo menos 10hr de trabajo mensuales en las diferentes tareas del club. A continuaci&oacute;n se les enviara un correo a los socios habilitados a la cuota reducida.</b><br><br>'.
         '<span style="text-decoration:underline">Formas de Pago:</span><br><br>' .
         '<strong>BROU</strong><br>'.
         'Puedes hacer una transferencia o deposito a la caja de ahorro numero <b>188-0504831</b> del BROU, en tal caso envianos un email con el detalle del pago, ya sea numero de transferencia o referencia.<br><br>'.

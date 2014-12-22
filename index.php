@@ -10,7 +10,7 @@ if(Auth::access_level()<0) { ?>
 <?php }else{ ?>
 
 <head>
-	<script src="scripts1.0.2/index.js"></script>
+	<script src="scripts1.0.4/index.js"></script>
 </head>
 
 <body>
@@ -21,6 +21,10 @@ if(Auth::access_level()<0) { ?>
                 <!--<div id="listaSociosBtnImportarSocio" class="btn btn-primary">Importar Socio de AECU</div>-->
                 <div id="listaSociosBtnArmarListaMails" class="btn btn-success">Armar Lista de Correo</div>
                 <!--<div id="listaSociosBtnEnviarEstado" class="btn btn-success" onclick="Index.OpenEnviarEstados();">Enviar Estados</div>-->
+                <select class="lista-socios-show" onchange="Index.CambiarSociosAMostrar();">
+                    <option value="activos">Mostrar Socios Activos</option>
+                    <option value="suspendidos">Mostrar Socios Suspendidos</option>
+                </select>
                 <h5 id="totalRegistrosSocios" class="totalRegistros"></h5>
 			</div>
 			<div id=feedbackContainer></div>
