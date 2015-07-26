@@ -154,6 +154,34 @@ var Admins = {
             return false;
         }
         return true;
+    },
+    OpenModalCerrarCaja: function(){
+        if(Admins.SettingCajaCerrada){
+            $('.admin_cerrar_caja_fecha').html(Toolbox.MysqlDateToDate(DATO_cajacerrada));
+        }
+        $('#adminsCerrarCajaModal').modal('show');
+    },
+    SalvarCerrarCaja: function(){
+        Toolbox.ShowLoader();
+
+        $.ajax({
+            dataType: 'json',
+            type: "POST",
+            url: "proc/controller.php",
+            data: { func: "update_dato", codigo:"cajacerrada",
+                valor:Toolbox.DataToMysqlDate($('.admin_cerrar_caja_fecha').val())}
+        }).done(function (data) {
+            if (data && data.ok) {
+                location.reload();
+            }else{
+                if(data && data.error){
+                    Toolbox.ShowFeedback('feedbackContainer', 'error', data.error);
+                }else{
+                    Toolbox.ShowFeedback('feedbackContainer', 'error', 'No se pudo cerrar la caja.');
+                }
+            }
+            Toolbox.StopLoader();
+        });
     }
 
 }
@@ -163,6 +191,13 @@ var Admins = {
 $(document).ready(function () {
 
     Toolbox.UpdateActiveNavbar('nav_lista_admins');
+    $(".admin_cerrar_caja_fecha").mask("99/99/9999");
     Admins.LoadAdmins();
+
+    if(DATO_cajacerrada && DATO_cajacerrada != ""){
+        $('.texto-caja-cerrada').html("Caja cerrada al " + Toolbox.MysqlDateToDate(DATO_cajacerrada));
+    }else{
+        $('.texto-caja-cerrada').html("La caja no fue cerrada. Puedes cerrar la caja a una fecha especifica para asegurarte de que no se hagan cambios previos a esa fecha.");
+    }
 
 });

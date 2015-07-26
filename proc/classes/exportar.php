@@ -230,6 +230,33 @@ class Exportar {
         Exportar::outputCSV($allRows);
     }
 
+    static public function exportar_socios_activos(){
+        $fechaArchivo = date('Y-m-d');
+        header("Content-type: text/csv");
+        header("Content-Disposition: attachment; filename=ListaSociosActivos-".$fechaArchivo.".csv");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+
+        $array = array(array("Numero", "Nombre", "Documento", "Fecha Nacimiento", "Fundador", "Fecha Ingreso", "Email", "Telefono"));
+
+        $socios = Socio::get_socios_activos();
+
+        if($socios){
+            for($i = 0;$i< count($socios);$i++){
+                $array[] = array($socios[$i]->numero,
+                    $socios[$i]->nombre,
+                    $socios[$i]->documento,
+                    $socios[$i]->fecha_nacimiento,
+                    "",
+                    $socios[$i]->fecha_inicio,
+                    $socios[$i]->email,
+                    $socios[$i]->telefono);
+            }
+        }
+
+        Exportar::outputCSV($array);
+    }
+
     private static function sacarTildes($text) {
 
         $result = str_replace("á", "a", $text);

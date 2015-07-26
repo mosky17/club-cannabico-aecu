@@ -32,6 +32,8 @@ class Auth {
 
 		$result=mysql_query("SELECT * FROM admins WHERE email='" . $username . "' and secreto='" . $passwd . "'");
 
+        //echo "SELECT * FROM admins WHERE email='" . $username . "' and secreto='" . $passwd . "'";
+
 		if(mysql_num_rows($result)==1){
 
             $adminData = mysql_fetch_array($result);

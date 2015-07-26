@@ -19,8 +19,13 @@ class Socio
     public $telefono;
     public $observaciones;
     public $activo;
+    public $fecha_nacimiento;
+    public $direccion;
+    public $hash;
 
-    function __construct($_id, $_nombre, $_fecha_inicio, $_email, $_documento, $_telefono, $_tags, $_numero, $_observaciones, $activo)
+    function __construct($_id, $_nombre, $_fecha_inicio, $_email, $_documento,
+                         $_telefono, $_tags, $_numero, $_observaciones, $activo,
+                         $fecha_nacimiento, $direccion, $hash)
     {
 
         $this->id = $_id;
@@ -33,6 +38,9 @@ class Socio
         $this->numero = $_numero;
         $this->observaciones = $_observaciones;
         $this->activo = $activo;
+        $this->fecha_nacimiento = $fecha_nacimiento;
+        $this->direccion = $direccion;
+        $this->hash = $hash;
 
     }
 
@@ -43,7 +51,9 @@ class Socio
             while ($row = mysql_fetch_array($result)) {
                 $tags = explode(",", $row['tags']);
 
-                $instance = new Socio($row['id'], $row['nombre'], $row['fecha_inicio'], $row['email'], $row['documento'], $row['telefono'], $tags, $row['numero'], $row['observaciones'], $row['activo']);
+                $instance = new Socio($row['id'], $row['nombre'], $row['fecha_inicio'], $row['email'],
+                    $row['documento'], $row['telefono'], $tags, $row['numero'], $row['observaciones'],
+                    $row['activo'], $row['fecha_nacimiento'], $row['direccion'], $row['hash']);
                 $return[] = $instance;
             }
         }
@@ -79,6 +89,17 @@ class Socio
         }
     }
 
+    static public function get_socio_hash($hash)
+    {
+        $q = mysql_query("SELECT * FROM socios WHERE hash = '" . $hash . "';");
+        $result = Socio::mysql_to_instances($q);
+        if (count($result) == 1) {
+            return $result[0];
+        } else {
+            return array("error" => "Socio no encontrado");
+        }
+    }
+
     static public function get_tags()
     {
         $q = mysql_query("SELECT * FROM tags ORDER BY id;");
@@ -89,7 +110,7 @@ class Socio
         return $return;
     }
 
-    static public function create_socio($numero, $nombre, $documento, $email, $fecha_inicio, $tags, $telefono, $observaciones)
+    static public function create_socio($numero, $nombre, $documento, $email, $fecha_inicio, $tags, $telefono, $observaciones, $fecha_nacimiento)
     {
 
         //check number
@@ -105,11 +126,12 @@ class Socio
         }
         $tagString = rtrim($tagString, ",");
 
-        $q = mysql_query("INSERT INTO socios (id, numero, nombre, documento, email, fecha_inicio, tags, telefono, observaciones) VALUES (" .
+        $q = mysql_query("INSERT INTO socios (id, numero, nombre, documento, email, fecha_inicio, tags, telefono, observaciones, fecha_nacimiento, hash) VALUES (" .
         "null, " . htmlspecialchars(mysql_real_escape_string($numero)) . ", '" . htmlspecialchars(mysql_real_escape_string($nombre)) . "', '" .
         htmlspecialchars(mysql_real_escape_string($documento)) . "', '" . htmlspecialchars(mysql_real_escape_string($email)) . "', '" .
         htmlspecialchars(mysql_real_escape_string($fecha_inicio)) . "', '" . htmlspecialchars(mysql_real_escape_string($tagString)) . "', '" .
-        htmlspecialchars(mysql_real_escape_string($telefono)) . "', '" . htmlspecialchars(mysql_real_escape_string($observaciones)) . "');");
+        htmlspecialchars(mysql_real_escape_string($telefono)) . "', '" . htmlspecialchars(mysql_real_escape_string($observaciones)) . "', '" .
+        htmlspecialchars(mysql_real_escape_string($fecha_nacimiento)) . "');");
 
         if (mysql_affected_rows() == 1) {
             return mysql_insert_id();
@@ -118,7 +140,7 @@ class Socio
         }
     }
 
-    static public function update_socio($id, $numero, $nombre, $documento, $email, $fecha_inicio, $tags, $telefono, $observaciones)
+    static public function update_socio($id, $numero, $nombre, $documento, $email, $fecha_inicio, $tags, $telefono, $observaciones, $fecha_nacimiento)
     {
 
         //check number
@@ -141,6 +163,7 @@ class Socio
         "', fecha_inicio='" . htmlspecialchars(mysql_real_escape_string($fecha_inicio)) .
         "', tags='" . htmlspecialchars(mysql_real_escape_string($tagString)) .
         "', telefono='" . htmlspecialchars(mysql_real_escape_string($telefono)) .
+        "', fecha_nacimiento='" . htmlspecialchars(mysql_real_escape_string($fecha_nacimiento)) .
         "', observaciones='" . htmlspecialchars(mysql_real_escape_string($observaciones)) . "' WHERE id=" . $id);
 
         if (mysql_affected_rows() == 1) {
@@ -159,7 +182,7 @@ class Socio
         if (mysql_num_rows($q) == 1) {
             Auth::connect();
             $row = mysql_fetch_array($q);
-            return Socio::create_socio($row['Numero_Socio'], $row['Nombre'], $row['Documento'], $row['Email'], date('Y-m-d'), "", $row['Telefono'], "");
+            return Socio::create_socio($row['Numero_Socio'], $row['Nombre'], $row['Documento'], $row['Email'], date('Y-m-d'), "", $row['Telefono'], "", $row['Fecha_Nacimiento']);
         } elseif (mysql_num_rows($q) == 0) {
             Auth::connect();
             return array("error" => "Socio no encontrado");
@@ -289,6 +312,18 @@ class Socio
 
         */
 
+    }
+
+    public function generate_hash(){
+
+        $q = mysql_query("UPDATE socios SET hash=CONCAT(MD5('" . $this->id . $this->numero . $this->documento . $this->telefono. "secreto'), UNIX_TIMESTAMP()) WHERE id=" . $this->id);
+
+        if (mysql_affected_rows() == 1) {
+            $socioAgain = Socio::get_socio($this->id);
+            return $socioAgain->hash;
+        } else {
+            return array("error" => "Error al generar hash.");
+        }
     }
 
     public function has_tag($tag){

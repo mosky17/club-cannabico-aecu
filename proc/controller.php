@@ -10,6 +10,9 @@ require_once(dirname(__FILE__).'/classes/exportar.php');
 require_once(dirname(__FILE__).'/classes/entrega.php');
 require_once(dirname(__FILE__).'/classes/admin.php');
 require_once(dirname(__FILE__).'/classes/genetica.php');
+require_once(dirname(__FILE__).'/classes/informe_cosecha.php');
+require_once(dirname(__FILE__).'/classes/recordatorio_deuda.php');
+require_once(dirname(__FILE__).'/classes/dato.php');
 
 //************** AUTH ********************
 
@@ -43,11 +46,11 @@ function get_tags(){
 	echo json_encode($result);
 }
 function create_socio(){
-	$result = Socio::create_socio($_POST['numero'], $_POST['nombre'], $_POST['documento'], $_POST['email'], $_POST['fecha_inicio'], $_POST['tags'], $_POST['telefono'], $_POST['observaciones']);
+	$result = Socio::create_socio($_POST['numero'], $_POST['nombre'], $_POST['documento'], $_POST['email'], $_POST['fecha_inicio'], $_POST['tags'], $_POST['telefono'], $_POST['observaciones'], $_POST['fecha_nacimiento']);
 	echo json_encode($result);
 }
 function update_socio(){
-    $result = Socio::update_socio($_POST['id'],$_POST['numero'], $_POST['nombre'], $_POST['documento'], $_POST['email'], $_POST['fecha_inicio'], $_POST['tags'], $_POST['telefono'], $_POST['observaciones']);
+    $result = Socio::update_socio($_POST['id'],$_POST['numero'], $_POST['nombre'], $_POST['documento'], $_POST['email'], $_POST['fecha_inicio'], $_POST['tags'], $_POST['telefono'], $_POST['observaciones'], $_POST['fecha_nacimiento']);
     echo json_encode($result);
 }
 function get_socio(){
@@ -189,6 +192,58 @@ function get_producido_por_genetica(){
     echo json_encode($result);
 }
 
+//************** INFORMES COSECHA ********************
+function get_informes_cosecha(){
+    $result = InformeCosecha::get_lista_informes();
+    echo json_encode($result);
+}
+function ingresar_informe_cosecha(){
+    $result = InformeCosecha::ingresar_informe($_POST['fecha'],
+                                            $_POST['id_genetica'],
+                                            $_POST['cantidad_plantas'],
+                                            $_POST['peso_total_fresco'],
+                                            $_POST['peso_total_seco'],
+                                            $_POST['lote'],
+                                            $_POST['responsable_tecnico'],
+                                            $_POST['responsable_produccion'],
+                                            $_POST['aclaraciones']);
+
+    echo json_encode($result);
+}
+function borrar_informe_cosecha(){
+    $result = InformeCosecha::borrar_informe($_POST['id']);
+    echo json_encode($result);
+}
+
+function exportar_informe_cosecha(){
+    InformeCosecha::exportar_informes($_GET['ids'],$_GET['periodo']);
+}
+
+//************** DATOS ********************
+
+function update_dato(){
+    $result = Dato::actualizar_dato($_POST['codigo'],$_POST['valor']);
+    echo json_encode($result);
+}
+
+//************** DEUDA ********************
+
+function get_all_deudas(){
+    $result = RecordatorioDeuda::GetAllDeudas();
+    echo json_encode($result);
+}
+function get_deudas_socio(){
+    $result = RecordatorioDeuda::GetDeudasSocio($_POST['id_socio']);
+    echo json_encode($result);
+}
+function ingresar_deuda(){
+    $result = RecordatorioDeuda::IngresarDeuda($_POST['id_socio'],$_POST['monto'],$_POST['razon']);
+    echo json_encode($result);
+}
+function cancelar_deuda(){
+    $result = RecordatorioDeuda::CancelarDeuda($_POST['id']);
+    echo json_encode($result);
+}
 
 //************** EXPORTAR ********************
 
@@ -203,6 +258,9 @@ function exportar_pago_total_por_socio(){
 }
 function exportar_pagos_por_mes(){
     Exportar::exportar_pagos_por_mes();
+}
+function exportar_socios_activos(){
+    Exportar::exportar_socios_activos();
 }
 
 //************** PROC ********************

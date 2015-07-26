@@ -110,7 +110,7 @@ font-weight: normal;
 
 .socioDatosField h4 {
 	float:left;
-	width:150px;
+	width:180px;
 }
 
 .socioDatosField input {
@@ -159,7 +159,7 @@ height: 28px;
 }
 
 #socioDatosValorTags {
-    margin: 0 0 0 150px;
+    margin: 0 0 0 180px;
 }
 
 #socioLabelEstado {
@@ -354,26 +354,139 @@ height: 28px;
     margin: 0;
 }
 
-.macroentrega_socio_label {
+.container_macroentrega_socios {
+    max-height: 170px;
+    overflow-y: auto;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.informeCosechaGenetica {
+    height: auto;
+}
+
+.table-datos {
+    margin-top: 40px;
+}
+
+.datos-codigo-row {
+    font-weight: bold;
+    border-bottom: 1px solid #aaa;
+    padding: 25px 50px 5px 0px;
+    color: #555;
+    min-width: 200px;
+}
+
+.datos-valor-row {
+    border-bottom: 1px solid #aaa;
+    padding: 25px 25px 5px 0px;
+    min-width: 200px;
+}
+
+.datos-edit-row {
+    border-bottom: 1px solid #aaa;
+    padding: 25px 0 5px;
+}
+
+.datos-input {
+    padding: 15px 8px 13px;
+    margin: 0;
+}
+
+.botoneraTopContainer {
+    margin-bottom: 10px;
+}
+
+.socio-deuda {
+    margin-bottom: 10px;
+    display: table;
+}
+
+.socioListaContenedor {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.listaGrandeContenedor {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#index-warning-emails,
+#index-warning-fechanac,
+#index-warning-doc {
+    display: none;
+    margin-bottom: 10px;
+}
+
+.macropago_socio_label,
+.macroentrega_socio_label{
     float: left;
     margin: 2px 0 0 5px;
 }
 
+#macropago_tabla_socios td,
 #macroentrega_tabla_socios td{
     width: 33%;
 }
 
-#macroentrega_tabla_socios {
+#macropago_tabla_socios,
+#macroentrega_tabla_socios{
     width: 446px;
 }
 
-.macroentrega_socio_chk {
+.macropago_socio_chk,
+.macroentrega_socio_chk{
     margin-left: 0 !important;
 }
 
-.container_macroentrega_socios {
+.container_macropago_socios {
     max-height: 170px;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-left: 20px;
     margin-top: 10px;
 }
+
+.macroTabla td.right{
+    border-right: 1px dotted #ccc;
+    border-left: 1px dotted #ccc;
+    padding: 5px;
+}
+
+.macroTabla td.left{
+    border-right: 1px dotted #ccc;
+    padding: 5px;
+}
+
+.macroTabla select {
+    width: auto;
+}
+
+.macroTabla .fieldname {
+    font-size: 12px;
+    padding: 5px 0 0;
+}
+
+.macroTabla {
+    width: 100%;
+}
+
+.admin-setting-box {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.admin-setting-box .btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.admin-setting-box p {
+    max-width: 75%;
+}
+
+

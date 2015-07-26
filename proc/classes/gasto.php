@@ -59,6 +59,11 @@ class Gasto {
 
     static public function cancelar_gasto($id)
     {
+        $gasto = Gasto::get_gasto($id);
+        if(Dato::verificar_movimiento_caja($gasto->fecha_pago) !== true){
+            return array("error" => "Caja cerrada! No se pueden alterar movimientos de esta fecha.");
+        }
+
         $q = mysql_query("UPDATE gastos SET cancelado=1 WHERE id=".$id);
         if (mysql_affected_rows() == 1) {
             return true;
@@ -69,6 +74,11 @@ class Gasto {
 
     static public function update_rubro_gasto($id,$rubro)
     {
+        $gasto = Gasto::get_gasto($id);
+        if(Dato::verificar_movimiento_caja($gasto->fecha_pago) !== true){
+            return array("error" => "Caja cerrada! No se pueden alterar movimientos de esta fecha.");
+        }
+
         $q = mysql_query("UPDATE gastos SET rubro='".$rubro."' WHERE id=".$id);
         if (mysql_affected_rows() == 1) {
             return true;
@@ -92,6 +102,10 @@ class Gasto {
     }
 
     static public function ingresar_gasto($valor,$fecha_pago,$razon,$notas,$rubro){
+
+        if(Dato::verificar_movimiento_caja($fecha_pago) !== true){
+            return array("error" => "Caja cerrada! No se pueden ingresar movimientos en esta fecha.");
+        }
 
         $q = mysql_query("INSERT INTO gastos (valor, fecha_pago, razon, notas, rubro) VALUES ('" . htmlspecialchars(mysql_real_escape_string($valor)) . "', '" .
             htmlspecialchars(mysql_real_escape_string($fecha_pago)) . "', '" . htmlspecialchars(mysql_real_escape_string($razon)) . "', '" .

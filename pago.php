@@ -18,7 +18,7 @@ if (Auth::access_level() < 0) {
 <?php } else { ?>
 
     <head>
-        <script src="scripts1.0.4/pago.js"></script>
+        <script src="scripts1.0.7/pago.js"></script>
     </head>
 
     <body>

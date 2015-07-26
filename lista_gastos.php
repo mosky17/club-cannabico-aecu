@@ -18,7 +18,7 @@ if (Auth::access_level() < 0) {
 <?php } else { ?>
 
     <head>
-        <script src="scripts1.0.4/lista_gastos.js"></script>
+        <script src="scripts1.0.7/lista_gastos.js"></script>
     </head>
 
     <body>

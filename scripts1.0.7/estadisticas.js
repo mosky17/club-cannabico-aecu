@@ -395,7 +395,7 @@ var Estadisticas = {
                 title: {
                     text: "gramos"
                 }
-            },
+            }
         });
     }
 }

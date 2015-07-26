@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Martin
- * Date: 09/03/14
- * Time: 09:27 PM
- * To change this template use File | Settings | File Templates.
- */
 
 require_once(dirname(__FILE__) . '/auth.php');
 
@@ -68,13 +61,13 @@ class Entrega {
 
     static public function get_lista_entregas()
     {
-        $q = mysql_query("SELECT * FROM entregas WHERE cancelado=0 ORDER BY fecha;");
+        $q = mysql_query("SELECT * FROM entregas WHERE cancelado=0 ORDER BY fecha DESC;");
         return Entrega::mysql_to_instances($q);
     }
 
     static public function get_entregas_socio($id)
     {
-        $q = mysql_query("SELECT * FROM entregas WHERE id_socio=". $id . " AND cancelado=0 ORDER BY fecha;");
+        $q = mysql_query("SELECT * FROM entregas WHERE id_socio=". $id . " AND cancelado=0 ORDER BY fecha DESC;");
         return Entrega::mysql_to_instances($q);
     }
 

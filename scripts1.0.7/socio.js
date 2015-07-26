@@ -70,6 +70,7 @@ var Socio = {
         $('#socioDatosValorNombre').html('<input id="socioNuevoNombre" type="text">');
         $('#socioDatosValorTelefono').html('<input id="socioNuevoTelefono" type="text">');
         $('#socioDatosValorFechaInicio').html('<input id="socioNuevoFechaInicio"  placeholder="01/12/2013" type="text">');
+        $('#socioDatosValorFechaNacimiento').html('<input id="socioNuevoFechaNacimiento"  placeholder="01/12/2013" type="text">');
         $('#socioDatosValorTags').html('');
         $.each(Socio.Tags, function (index, value) {
             $('#socioDatosValorTags').append('<label><input type="checkbox" id="socioNuevoTagChk_' + value.id + '" class="socioNuevoTagChk" name="' + value.id + '"/>' + value.nombre + '</label>');
@@ -77,6 +78,7 @@ var Socio = {
         $('#socioDatosValorObservaciones').html('<textarea id="socioNuevoObservaciones"></textarea>');
         $('#socioDatosFieldNombre').css('display', 'block');
         $("#socioNuevoFechaInicio").mask("99/99/9999");
+        $("#socioNuevoFechaNacimiento").mask("99/99/9999");
     },
     SalvarSocio: function () {
 
@@ -91,11 +93,11 @@ var Socio = {
             if (Socio.Editing) {
                 postData = { func: "update_socio", id: Socio.IdSocio, numero: $('#socioNuevoNumero').val(), nombre: $('#socioNuevoNombre').val(), documento: $('#socioNuevoDocumento').val(),
                     email: $('#socioNuevoEmail').val(), telefono: $('#socioNuevoTelefono').val(), fecha_inicio: Toolbox.DataToMysqlDate($('#socioNuevoFechaInicio').val()), tags: tags,
-                    observaciones: $('#socioNuevoObservaciones').val()};
+                    observaciones: $('#socioNuevoObservaciones').val(), fecha_nacimiento: Toolbox.DataToMysqlDate($('#socioNuevoFechaNacimiento').val())};
             } else {
                 postData = { func: "create_socio", id: Socio.IdSocio, numero: $('#socioNuevoNumero').val(), nombre: $('#socioNuevoNombre').val(), documento: $('#socioNuevoDocumento').val(),
                     email: $('#socioNuevoEmail').val(), telefono: $('#socioNuevoTelefono').val(), fecha_inicio: Toolbox.DataToMysqlDate($('#socioNuevoFechaInicio').val()), tags: tags,
-                    observaciones: $('#socioNuevoObservaciones').val()};
+                    observaciones: $('#socioNuevoObservaciones').val(), fecha_inicio: Toolbox.DataToMysqlDate($('#socioNuevoFechaNacimiento').val())};
             }
 
             Toolbox.ShowLoader();
@@ -128,18 +130,21 @@ var Socio = {
             if (!error && $('#socioNuevoNombre').val() == '') {
                 error = 'Falt&oacute; especificar nombre de socio';
             } else if (!error && $('#socioNuevoNumero').val() == '') {
-                error = 'Falto especificar numero de socio';
+                error = 'Falt&oacute; especificar numero de socio';
             } else if (!error && isNaN($('#socioNuevoNumero').val())) {
-                error = 'Numero de socio invalido';
+                error = 'N&uacute;mero de socio invalido';
             }
             if (!error && $('#socioNuevoEmail').val() == '') {
-                error = 'Falto especificar un email';
+                error = 'Falt&oacute; especificar un email';
             }
             if (!error && $('#socioNuevoNombre').val() == '') {
-                error = 'Falto especificar el nombre del socio';
+                error = 'Falt&oacute; especificar el nombre del socio';
             }
             if (!error && $('#socioNuevoFechaInicio').val() == '') {
-                error = 'Falto especificar fecha de inicio';
+                error = 'Falt&oacute; especificar fecha de inicio';
+            }
+            if (!error && $('#socioNuevoFechaNacimiento').val() == '') {
+                error = 'Falt&oacute; especificar fecha de nacimiento';
             }
         }
 
@@ -180,6 +185,7 @@ var Socio = {
                     $("#socioDatosValorDocumento").html('<p>' + data.documento + "</p>");
                     $("#socioDatosValorEmail").html('<p>' + data.email + "</p>");
                     $("#socioDatosValorFechaInicio").html('<p>' + Toolbox.MysqlDateToDate(data.fecha_inicio) + "</p>");
+                    $("#socioDatosValorFechaNacimiento").html('<p>' + Toolbox.MysqlDateToDate(data.fecha_nacimiento) + "</p>");
                     $("#socioDatosValorTelefono").html('<p>' + data.telefono + "</p>");
                     if (data.observaciones) {
                         $("#socioDatosValorObservaciones").html('<p>' + data.observaciones + "</p>");
@@ -215,6 +221,7 @@ var Socio = {
         $('#socioDatosValorNombre').html('<input id="socioNuevoNombre" type="text" value="' + Socio.SocioData.nombre + '">');
         $('#socioDatosValorTelefono').html('<input id="socioNuevoTelefono" type="text" value="' + Socio.SocioData.telefono + '">');
         $('#socioDatosValorFechaInicio').html('<input id="socioNuevoFechaInicio" type="text"  placeholder="01/12/2013" value="' + Toolbox.MysqlDateToDate(Socio.SocioData.fecha_inicio) + '">');
+        $('#socioDatosValorFechaNacimiento').html('<input id="socioNuevoFechaNacimiento" type="text"  placeholder="01/12/2013" value="' + Toolbox.MysqlDateToDate(Socio.SocioData.fecha_nacimiento) + '">');
         $('#socioDatosValorTags').html('');
         $.each(Socio.Tags, function (index, value) {
             $('#socioDatosValorTags').append('<label><input type="checkbox" id="socioNuevoTagChk_' + value.id + '" class="socioNuevoTagChk" name="' + value.id + '"/>' + value.nombre + '</label>');
@@ -224,6 +231,7 @@ var Socio = {
         });
         $('#socioDatosValorObservaciones').html('<textarea id="socioNuevoObservaciones">' + Socio.SocioData.observaciones + '</textarea>');
         $("#socioNuevoFechaInicio").mask("99/99/9999");
+        $("#socioNuevoFechaNacimiento").mask("99/99/9999");
 
     },
     OpenModalNuevoPago: function(){
@@ -484,6 +492,79 @@ var Socio = {
             $('#socioIngresarPagoRazonMensualidadMes').css('display','none');
             $('#socioIngresarPagoRazonMensualidadAnio').css('display','none');
         }
+    },
+    GetDeudas: function(){
+        Toolbox.ShowLoader();
+        $.ajax({
+            dataType: 'json',
+            type: "POST",
+            url: "proc/controller.php",
+            data: { func: "get_deudas_socio", id_socio: Socio.IdSocio }
+        }).done(function (data) {
+            if (data && !data.error) {
+                $('.socioRecordatorioDeudaContainer').html('');
+                for(var i=0;i<data.length;i++){
+                    $('.socioRecordatorioDeudaContainer').append('<span class="alert alert-danger socio-deuda"><strong>$' + data[i].monto + "</strong>  " + data[i].razon +
+                        '<button type="button" class="close" aria-label="Close" onclick="Socio.CancelarDeuda(\'' + data[i].id + '\');"><span aria-hidden="true">&times;</span></button></span>');
+                }
+            }
+            Toolbox.StopLoader();
+        });
+    },
+    OpenModalNuevaDeuda: function(){
+        $('.feedbackContainerModal').css('display', 'none');
+        $('#socioIngresarDeudaMonto').val('');
+        $('#socioIngresarDeudaRazon').val('');
+        $('#socioIngresarDeudaModal').modal("show");
+    },
+    IngresarDeuda: function(){
+        Toolbox.ShowLoader();
+        $.ajax({
+            dataType: 'json',
+            type: "POST",
+            url: "proc/controller.php",
+            data: { func: "ingresar_deuda", id_socio: Socio.IdSocio,
+                monto:$('#socioIngresarDeudaMonto').val(),
+                razon:$('#socioIngresarDeudaRazon').val()}
+        }).done(function (data) {
+            if (data && !data.error) {
+
+                $('#socioIngresarDeudaModal').modal("hide");
+                Socio.GetDeudas();
+
+            } else {
+                if (data && data.error) {
+                    Toolbox.ShowFeedback('feedbackContainer', 'error', data.error);
+                } else {
+                    Toolbox.ShowFeedback('feedbackContainer', 'error', 'Error al cancelar deuda.');
+                }
+            }
+            Toolbox.StopLoader();
+        });
+    },
+    CancelarDeuda: function(id){
+        if(confirm("Cancelar deuda?")){
+            Toolbox.ShowLoader();
+            $.ajax({
+                dataType: 'json',
+                type: "POST",
+                url: "proc/controller.php",
+                data: { func: "cancelar_deuda", id: id }
+            }).done(function (data) {
+                if (data && !data.error) {
+
+                    Socio.GetDeudas();
+
+                } else {
+                    if (data && data.error) {
+                        Toolbox.ShowFeedback('feedbackContainer', 'error', data.error);
+                    } else {
+                        Toolbox.ShowFeedback('feedbackContainer', 'error', 'Error al cancelar deuda.');
+                    }
+                }
+                Toolbox.StopLoader();
+            });
+        }
     }
 }
 
@@ -521,6 +602,7 @@ $(document).ready(function () {
     });
 
     Socio.LoadPagos();
+    Socio.GetDeudas();
     Socio.LoadGeneticas();
 
 

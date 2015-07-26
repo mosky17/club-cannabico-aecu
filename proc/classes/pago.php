@@ -54,6 +54,11 @@ class Pago
 
     static public function cancelar_pago($id)
     {
+        $pago = Pago::get_pago($id);
+        if(Dato::verificar_movimiento_caja($pago->fecha_pago) !== true){
+            return array("error" => "Caja cerrada! No se pueden alterar movimientos de esta fecha.");
+        }
+
         $q = mysql_query("UPDATE pagos SET cancelado=1 WHERE id=".$id);
         if (mysql_affected_rows() == 1) {
             return true;
@@ -64,13 +69,13 @@ class Pago
 
     static public function get_pagos_socio($id_socio)
     {
-        $q = mysql_query("SELECT * FROM pagos WHERE id_socio=".$id_socio." AND cancelado=0 ORDER BY fecha_pago;");
+        $q = mysql_query("SELECT * FROM pagos WHERE id_socio=".$id_socio." AND cancelado=0 ORDER BY fecha_pago DESC;");
         return Pago::mysql_to_instances($q);
     }
 
     static public function get_lista_pagos()
     {
-        $q = mysql_query("SELECT * FROM pagos WHERE cancelado=0 ORDER BY fecha_pago;");
+        $q = mysql_query("SELECT * FROM pagos WHERE cancelado=0 ORDER BY fecha_pago DESC;");
         return Pago::mysql_to_instances($q);
     }
 
@@ -81,6 +86,10 @@ class Pago
     }
 
     static public function ingresar_pago($id_socio,$valor,$fecha_pago,$razon,$tipo,$notas){
+
+        if(Dato::verificar_movimiento_caja($fecha_pago) !== true){
+            return array("error" => "Caja cerrada! No se pueden ingresar movimientos en esta fecha.");
+        }
 
         $q = mysql_query("INSERT INTO pagos (id_socio, valor, fecha_pago, razon, tipo, notas) VALUES (" .
         htmlspecialchars(mysql_real_escape_string($id_socio)) . ", '" . htmlspecialchars(mysql_real_escape_string($valor)) . "', '" .

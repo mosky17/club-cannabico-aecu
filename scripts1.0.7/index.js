@@ -53,6 +53,7 @@ var Index = {
                 Toolbox.StopLoader();
             });
     },
+    SociosActivos: null,
     SociosAMostrar:"activos",
     LoadListaSocios: function () {
 
@@ -75,6 +76,13 @@ var Index = {
                     var countSocios = 0;
 
                     for (var i = 0; i < data.length; i++) {
+
+                        if(Index.SociosAMostrar != 'suspendidos'){
+                            if(i==0){
+                                Index.SociosActivos = [];
+                            }
+                            Index.SociosActivos.push(data[i]);
+                        }
 
                         //if(data[i].activo == true){
 
@@ -107,8 +115,47 @@ var Index = {
                         Toolbox.ShowFeedback('feedbackContainer', 'error', 'Unexpected error');
                     }
                 }
+            Index.CheckWarnings();
                 Toolbox.StopLoader();
             });
+    },
+    CheckWarnings: function(){
+        if(Index.SociosActivos && Index.SociosActivos.length > 0){
+
+            var warningEmails = false;
+            var warningFechanac = false;
+            var warningDocus = false;
+            var emails = [];
+
+            for(var i=0;i<Index.SociosActivos.length;i++){
+                if(!Index.SociosActivos[i].documento || Index.SociosActivos[i].documento == ""){
+                    warningDocus = true;
+                }
+                if(!Index.SociosActivos[i].fecha_nacimiento || Index.SociosActivos[i].fecha_nacimiento == "" || Index.SociosActivos[i].fecha_nacimiento == "0000-00-00"){
+                    warningFechanac = true;
+                }
+                if(!Index.SociosActivos[i].email || Index.SociosActivos[i].email == ""){
+                    warningEmails = true;
+                }else{
+                    for(var j=0;i<emails.length;j++){
+                        if(emails[j] == Index.SociosActivos[i].email){
+                            warningEmails = true;
+                        }
+                    }
+                    emails.push(Index.SociosActivos[i].email);
+                }
+            }
+
+            if(warningEmails){
+                $('#index-warning-emails').css('display','block');
+            }
+            if(warningFechanac){
+                $('#index-warning-fechanac').css('display','block');
+            }
+            if(warningDocus){
+                $('#index-warning-doc').css('display','block');
+            }
+        }
     },
     ImportarSocioAecu: function () {
 
@@ -203,6 +250,9 @@ var Index = {
     CambiarSociosAMostrar: function(){
         Index.SociosAMostrar = $('.lista-socios-show').val();
         Index.LoadListaSocios();
+    },
+    ExportarListaSociosActivos: function(){
+        $("#exportIframe").attr("src","proc/controller.php?exportar=exportar_socios_activos");
     }
 }
 

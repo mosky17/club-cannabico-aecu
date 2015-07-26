@@ -11,7 +11,7 @@ if (Auth::access_level() < 0) {
 <?php } else { ?>
 
     <head>
-        <script src="scripts1.0.4/socio.js"></script>
+        <script src="scripts1.0.7/socio.js"></script>
     </head>
 
     <body>
@@ -46,9 +46,9 @@ if (Auth::access_level() < 0) {
                     <div id="socioDatosValorEmail" class="socioDatosValor"></div>
                 </div>
                 <div class="socioDatosField">
-                    <h4>Fecha Inicio</h4>
+                    <h4>Fecha Nacimiento</h4>
 
-                    <div id="socioDatosValorFechaInicio" class="socioDatosValor"></div>
+                    <div id="socioDatosValorFechaNacimiento" class="socioDatosValor"></div>
                 </div>
                 <div class="socioDatosField">
                     <h4>Tel&eacute;fono</h4>
@@ -58,6 +58,11 @@ if (Auth::access_level() < 0) {
 
             </div>
             <div class="span6">
+                <div class="socioDatosField">
+                    <h4>Fecha Inicio</h4>
+
+                    <div id="socioDatosValorFechaInicio" class="socioDatosValor"></div>
+                </div>
                 <div class="socioDatosField">
                     <h4>Tags</h4>
 
@@ -73,12 +78,23 @@ if (Auth::access_level() < 0) {
                 <div class="btn btn-primary" id="socioBtnSalvar">Salvar</div>
             </div>
         </div>
+
+
+
         <!--Pagos-->
-        <h3 id="socioPagoseTitulo">Pagos <i id="socioBtnNuevoPago" class="icon-plus-sign-alt socioIconBtnTitle" title="Ingresar un nuevo pago" onclick="Socio.OpenModalNuevoPago();"></i></h3>
+        <h3 id="socioPagoseTitulo">Pagos</h3>
+
+        <div class="botoneraTopContainer">
+            <div class="btn btn-success" title="Ingresar nuevo pago" onclick="Socio.OpenModalNuevoPago();">Agregar Pago</div>
+            <div class="btn btn-danger" title="Nuevo recordatorio de deuda" onclick="Socio.OpenModalNuevaDeuda();">Agregar Deuda</div>
+        </div>
+
+        <!-- Recordatorio Deuda -->
+        <div class="socioRecordatorioDeudaContainer"></div>
 
         <div class="box row-fluid">
-            <div class="span12">
-                <table class="table table-hover">
+            <div class="span12 socioListaContenedor">
+                <table class="table table-hover table-striped">
                     <thead>
                     <tr>
                         <th>#</th>
@@ -98,7 +114,7 @@ if (Auth::access_level() < 0) {
         <h3 id="socioEntregasTitulo">Entregas <i id="socioBtnNuevaEntrega" class="icon-plus-sign-alt socioIconBtnTitle" title="Registrar nueva entrega" onclick="Socio.OpenModalNuevaEntrega();"></i></h3>
 
         <div class="box row-fluid">
-            <div class="span12">
+            <div class="span12 socioListaContenedor">
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -159,6 +175,7 @@ if (Auth::access_level() < 0) {
                 <select id="socioIngresarPagoRazonMensualidadAnio">
                     <option value="2014">2014</option>
                     <option value="2015">2015</option>
+                    <option value="2016">2016</option>
                 </select>
             </div>
             <div class="modalListaRow">
@@ -171,6 +188,31 @@ if (Auth::access_level() < 0) {
             <img src="images/loaderModal.gif" class="loaderModal">
             <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cerrar</button>
             <button id="socioIngresarPagoModalBtnIngresar" class="btn btn-primary">Ingresar</button>
+        </div>
+    </div>
+
+    <!-- Modal ingresar deuda -->
+    <div id="socioIngresarDeudaModal" class="modal hide fade" tabindex="-1" role="dialog"
+         aria-labelledby="socioIngresarDeudaModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            <h3 id="socioIngresarDeudaModalLabel">Ingresar Deuda</h3>
+        </div>
+        <div class="modal-body">
+            <div id="feedbacksocioIngresarDeudaModal" class="feedbackContainerModal"></div>
+            <div class="modalListaRow">
+                <h4>Monto $</h4>
+                <input style="width: 110px;" type="text" placeholder="0.00" id="socioIngresarDeudaMonto">
+            </div>
+            <div class="modalListaRow">
+                <h4>Raz&oacute;n</h4>
+                <textarea id="socioIngresarDeudaRazon"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <img src="images/loaderModal.gif" class="loaderModal">
+            <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+            <button class="btn btn-primary" onclick="Socio.IngresarDeuda();">Ingresar</button>
         </div>
     </div>
 

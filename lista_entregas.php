@@ -11,7 +11,7 @@ if (Auth::access_level() < 0) {
 <?php } else { ?>
 
     <head>
-        <script src="scripts1.0.4/lista_entregas.js"></script>
+        <script src="scripts1.0.7/lista_entregas.js"></script>
     </head>
 
     <body>
@@ -47,17 +47,21 @@ if (Auth::access_level() < 0) {
                 </ul>
             </div>
         </div>
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>Fecha</th>
-                <th>Peso (gr)</th>
-                <th>Variedad</th>
-                <th>Notas</th>
-            </tr>
-            </thead>
-            <tbody id="listaEntregasTabla"></tbody>
-        </table>
+        <div class="box">
+            <div class="listaGrandeContenedor">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Peso (gr)</th>
+                        <th>Variedad</th>
+                        <th>Notas</th>
+                    </tr>
+                    </thead>
+                    <tbody id="listaEntregasTabla"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <!-- Modal genetica -->
@@ -100,22 +104,26 @@ if (Auth::access_level() < 0) {
         </div>
         <div class="modal-body">
             <div id="macroEntregaModalFeedback" class="feedbackContainerModal"></div>
-            <table>
+            <table class="macroTabla">
                 <tr>
-                    <td>Fecha</td>
+                    <td class="fieldname">Fecha</td>
                     <td><input type="text" class="macroentrega_fecha" placeholder="01/01/2015"></td>
                 </tr>
                 <tr>
-                    <td>Peso (gr)</td>
-                    <td><input type="text" class="macroentrega_peso"></td>
+                    <td class="fieldname">Peso (gr)</td>
+                    <td><input type="text" class="macroentrega_peso" placeholder="0.00"></td>
                 </tr>
                 <tr>
-                    <td>Variedad</td>
+                    <td class="fieldname">Variedad</td>
                     <td><select id="macroentrega_variedades"></select></td>
                 </tr>
                 <tr>
-                    <td>Socios</td>
-                    <td><div class="container_macroentrega_socios"><table id="macroentrega_tabla_socios"></table></div></td>
+                    <td class="fieldname">Socios</td>
+                    <td>
+                        <div class="container_macroentrega_socios">
+                            <table id="macroentrega_tabla_socios" class="table table-striped" style="width: 99%;"></table>
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
