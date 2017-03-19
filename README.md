@@ -24,6 +24,6 @@ Reglamentación Uruguaya 2014
 
 ## Suerte con la cosecha!
 
-Este systema fue creado con mucho amor por la **Asociación de Estudios del Cannabis del Uruguay** para beneficio de todos los clubes del Uruguay.
+Este sistema fue creado con mucho amor por la **Asociación de Estudios del Cannabis del Uruguay** para beneficio de todos los clubes del Uruguay.
 
 Enviar sugerencias o comentarios a *martin.gaibisso@gmail.com*
