@@ -10,14 +10,14 @@ Reglamentación Uruguaya 2014
 
 * Copiar/Clonar el codigo del repositorio en el directorio destino del servidor de hosting.
 
-* Crear una base de datos desde el administrador de tu cuenta de hosting
+* Crear una base de datos desde el administrador de tu cuenta de hosting.
 
-* Ejecutar en un administrador de base de datos como PhpMyAdmin el archivo de instalación inicial: db_setul.sql
-> Esto va a crear la base de datos vacia, si quisiera migrar desde una instalación ya existente, en vez de correr este archivo, deberia correr mi archivo de migración .sql
+* Ejecutar en un administrador de base de datos (como PhpMyAdmin) el archivo de instalación inicial: **db_setul.sql**
+> Esto va a cargar la base de datos vacia con los datos inisciales. Si quisieras migrar desde una instalación ya existente, en vez de correr este archivo, deberias correr tu archivo de migración .sql
 
-* Editar el archivo **db.php** con los datos de tu base de datos MySQL
+* Editar el archivo **db.php** con los datos de tu base de datos MySQL.
 
-* Editar el archivo **config.php** con los datos de tu club
+* Editar el archivo **config.php** con los datos de tu club.
 
 * Pronto para usar! El usuario de acceso inicial es:
 > Usuario: admin
