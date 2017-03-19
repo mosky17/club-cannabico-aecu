@@ -11,6 +11,13 @@ var Pago = {
     PagoData: {},
     LoadPago: function () {
 
+        $('#pagoDatosValorRazon').css("display","block");
+        $('#pagoDatosValorDescuento').css("display","block");
+        $('#pagoBtnCancelar').css("display","block");
+        $('#pagoEditarRazon').css("display","none");
+        $('#pagoEditarDescuento').css("display","none");
+        $('#pagoBtnSalvar').css("display","none");
+
         Toolbox.ShowLoader();
         $.ajax({
             dataType: 'json',
@@ -20,6 +27,11 @@ var Pago = {
         }).done(function (data) {
                 if (data && !data.error) {
                     Pago.PagoData = data;
+
+                    var descuento = "";
+                    if(data.descuento != "" && data.descuento != "0.00"){
+                        descuento = data.descuento + ' ' + Toolbox.TransformSpecialTag(data.descuento_json)
+                    }
 
                     if (data.cancelado == true) {
                         $('#pagoLabelEstado').css('display', 'block');
@@ -35,6 +47,7 @@ var Pago = {
                     $("#pagoDatosValorNotas").html('<p>' + data.notas + "</p>");
                     $("#pagoDatosValorRazon").html('<p>' + Toolbox.TransformSpecialTag(data.razon) + "</p>");
                     $("#pagoDatosValorSocio").html('<p>' + data.id_socio + "</p>");
+                    $("#pagoDatosValorDescuento").html(descuento);
 
                 } else {
                     if (data && data.error) {
@@ -70,6 +83,51 @@ var Pago = {
                     Toolbox.StopLoader();
                 });
         }
+    },
+    Editar: function(){
+        $('#pagoDatosValorRazon').css("display","none");
+        $('#pagoEditarRazon').css("display","table");
+        $('#pagoDatosValorDescuento').css("display","none");
+
+        $("#pagoEditarRazonRazon").val(Pago.PagoData.razon);
+        $("#pagoEditarDescuentoDescuento").val(Pago.PagoData.descuento);
+        $("#pagoEditarDescuentoRazonDescuento").val(Pago.PagoData.descuento_json);
+
+        $('#pagoEditarDescuento').css("display","block");
+        $('#pagoBtnCancelar').css("display","none");
+        $('#pagoBtnSalvar').css("display","block");
+    },
+    Salvar: function(){
+
+        //var razonPago = $("#pagoEditarRazonRazon").val();
+        //if ($("#pagoEditarRazonRazon").val() == "mensualidad") {
+        //    razonPago = "mensualidad (" + $('#pagoEditarRazonMensualidadMes').val() + "/" + $('#pagoEditarRazonMensualidadAnio').val() + ")";
+        //}
+
+        Toolbox.ShowLoader();
+        $.ajax({
+            dataType: 'json',
+            type: "POST",
+            url: "proc/controller.php",
+            data: { func: "salvar_pago_modificar",
+                id: Pago.IdPago,
+                razon: $("#pagoEditarRazonRazon").val(),
+                descuento: $("#pagoEditarDescuentoDescuento").val(),
+                descuento_json: $("#pagoEditarDescuentoRazonDescuento").val()
+            }
+        }).done(function (data) {
+            if (data && !data.error) {
+                Pago.LoadPago();
+
+            } else {
+                if (data && data.error) {
+                    Toolbox.ShowFeedback('feedbackContainer', 'error', data.error);
+                } else {
+                    Toolbox.ShowFeedback('feedbackContainer', 'error', 'No se pudieron salvar las modificaciones');
+                }
+            }
+            Toolbox.StopLoader();
+        });
     }
 }
 

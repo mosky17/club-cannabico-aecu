@@ -11,7 +11,7 @@ if (Auth::access_level() < 0) {
 <?php } else { ?>
 
     <head>
-        <script src="scripts1.0.7/lista_entregas.js"></script>
+        <script src="scripts1.0.10/lista_entregas.js"></script>
     </head>
 
     <body>

@@ -11,11 +11,34 @@ if (Auth::access_level() < 0) {
 <?php } else { ?>
 
     <head>
-        <script src="scripts1.0.7/lista_pagos.js"></script>
+        <script src="scripts1.0.10/lista_pagos.js"></script>
     </head>
 
     <body>
     <div class="container">
+
+        <div id=feedbackContainer></div>
+
+        <h2>Costo de cuota</h2>
+        <div class="controlesLista">
+            <div class="btn btn-primary" onclick="ListaPagos.OpenModalNuevoCostoCuota();">Nuevo registro</div>
+        </div>
+        <div class="box">
+            <div class="socioListaContenedor">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Valor $</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Fin</th>
+                        <th>Borrar registro</th>
+                    </tr>
+                    </thead>
+                    <tbody id="listaCostoCuotasTabla"></tbody>
+                </table>
+            </div>
+        </div>
+
         <h2>Lista de Pagos</h2>
         <div class="controlesLista">
             <div class="btn btn-primary" onclick="ListaPagos.OpenModalMacroPago();">Macro Pago</div>
@@ -30,6 +53,8 @@ if (Auth::access_level() < 0) {
                     <li><a tabindex="0" href="#" onClick="ListaPagos.ExportarComoListaTotalPagoPorSocio();">Como total pago por socio</a></li>
                     <li><a tabindex="1" href="#" onClick="ListaPagos.ExportarComoListaPagosPorMes();">Como lista de pagos
                             por mes</a></li>
+                    <li><a tabindex="2" href="#" onClick="ListaPagos.ExportarDeudas();">Deudas</a></li>
+                    <li><a tabindex="3" href="#" onClick="ListaPagos.ExportarDescuentosPorSocio();">Descuentos por socio</a></li>
                 </ul>
             </div>
         </div>
@@ -43,6 +68,7 @@ if (Auth::access_level() < 0) {
                         <th>Valor $</th>
                         <th>Fecha Pago</th>
                         <th>Raz&oacute;n</th>
+                        <th>Descuento</th>
                         <th>Notas</th>
                         <th>Tipo</th>
                         <th>Socio</th>
@@ -160,6 +186,39 @@ if (Auth::access_level() < 0) {
             <img src="images/loaderModal.gif" class="loaderModal">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
             <button class="btn btn-primary" onclick="ListaPagos.AgregarMacroPago();">Agregar Pagos</button>
+        </div>
+    </div>
+
+    <!-- Modal cuota costo -->
+    <div id="nuevaCuotaCostoModal" class="modal hide fade" tabindex="-1" role="dialog"
+         aria-labelledby="nuevaCuotaCostoModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            <h3 id="nuevaCuotaCostoModalLabel">Nuevo Registro de Costo de Cuota</h3>
+        </div>
+        <div class="modal-body">
+            <div id="nuevaCuotaCostoModalFeedback" class="feedbackContainerModal"></div>
+            <table class="macroTabla">
+                <tr>
+                    <td class="fieldname">Valor</td>
+                    <td>
+                        <input type="text" class="nuevaCuotaCosto_valor" placeholder="0.00">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="fieldname">Fecha Desde</td>
+                    <td><input type="text" class="nuevaCuotaCosto_fecha_inicio" placeholder="01/01/2015"></td>
+                </tr>
+                <tr>
+                    <td class="fieldname">Fecha Hasta</td>
+                    <td><input type="text" class="nuevaCuotaCosto_fecha_fin" placeholder="01/01/2015"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <img src="images/loaderModal.gif" class="loaderModal">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+            <button class="btn btn-primary" onclick="ListaPagos.SalvarCostoCuota();">Agregar Registro</button>
         </div>
     </div>
 

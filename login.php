@@ -16,13 +16,13 @@ require_once(dirname(__FILE__) . '/config.php');
     <meta charset="utf-8">
     <title><?php echo $GLOBALS['name']; ?></title>
     <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="scripts1.0.7/toolbox.js"></script>
-    <script src="scripts1.0.7/login.js"></script>
+    <script src="scripts1.0.10/toolbox.js"></script>
+    <script src="scripts1.0.10/login.js"></script>
 
     <!-- Le styles -->
-    <link href="styles1.0.7/bootstrap3.css" rel="stylesheet">
+    <link href="styles1.0.9/bootstrap3.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="styles1.0.7/main.css" rel="stylesheet">
+    <link href="styles1.0.9/main.css" rel="stylesheet">
     <style type="text/css">
         /* Override some defaults */
         body {
@@ -76,7 +76,7 @@ require_once(dirname(__FILE__) . '/config.php');
 </head>
 <body>
 <div class="container">
-    <img class="logo_login" src="<?php echo $GLOBALS['logo_url']; ?>">
+    <img class="logo_login" src="http://aecu.org.uy/logo_aecu_white.png">
     <div class="content">
         <div class="row">
             <div class="login-form">

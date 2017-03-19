@@ -5,7 +5,9 @@ require_once(dirname(__FILE__) . '/vista_layout.php');
 ?>
 
     <head>
-        <script src="scripts1.0.7/vista_socio.js"></script>
+        <script src="scripts1.0.10/globalize.js"></script>
+        <script src="scripts1.0.10/dx.chartjs.js"></script>
+        <script src="scripts1.0.10/vista_socio.js"></script>
     </head>
 
     <body>
@@ -41,17 +43,14 @@ require_once(dirname(__FILE__) . '/vista_layout.php');
 
                     <div id="socioDatosValorFechaInicio" class="socioDatosValor"></div>
                 </div>
-                <div class="socioDatosField">
-                    <h4>Tags</h4>
-
-                    <div id="socioDatosValorTags" class="socioDatosValor"></div>
-                </div>
             </div>
         </div>
 
         <!-- Recordatorio Deuda -->
+        <div class="deudas" style="display:none;">
         <h3>Pagos Adeudados</h3>
         <div class="socioRecordatorioDeudaContainer"></div>
+        </div>
 
         <!--Pagos-->
         <h3 id="socioPagoseTitulo">Pagos</h3>
@@ -65,6 +64,7 @@ require_once(dirname(__FILE__) . '/vista_layout.php');
                         <th>Valor $</th>
                         <th>Fecha Pago</th>
                         <th>Raz&oacute;n</th>
+                        <th>Descuento $</th>
                         <th>Tipo</th>
                     </tr>
                     </thead>
@@ -74,7 +74,7 @@ require_once(dirname(__FILE__) . '/vista_layout.php');
         </div>
 
         <!--Entregas-->
-        <h3 id="socioEntregasTitulo">Entregas</h3>
+        <h3 id="socioEntregasTitulo">Repartos</h3>
 
         <div class="box row-fluid">
             <div class="span12 socioListaContenedor">
@@ -90,6 +90,7 @@ require_once(dirname(__FILE__) . '/vista_layout.php');
                 </table>
             </div>
         </div>
+        <div id="torta-entregas" class="charts-containers" style="width: 100%;margin-top: 10px;"></div>
     </div>
 
     </body>

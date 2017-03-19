@@ -46,7 +46,15 @@ function get_tags(){
 	echo json_encode($result);
 }
 function create_socio(){
-	$result = Socio::create_socio($_POST['numero'], $_POST['nombre'], $_POST['documento'], $_POST['email'], $_POST['fecha_inicio'], $_POST['tags'], $_POST['telefono'], $_POST['observaciones'], $_POST['fecha_nacimiento']);
+	$result = Socio::create_socio($_POST['numero'],
+        $_POST['nombre'],
+        $_POST['documento'],
+        $_POST['email'],
+        $_POST['fecha_inicio'],
+        $_POST['tags'],
+        $_POST['telefono'],
+        $_POST['observaciones'],
+        $_POST['fecha_nacimiento']);
 	echo json_encode($result);
 }
 function update_socio(){
@@ -81,9 +89,15 @@ function send_estados_de_cuenta(){
 //************** PAGO ********************
 
 function ingresar_pago(){
-    $result = Pago::ingresar_pago($_POST['id_socio'],$_POST['valor'],$_POST['fecha_pago'],$_POST['razon'],$_POST['tipo'],$_POST['notas']);
+    $result = Pago::ingresar_pago($_POST['id_socio'],$_POST['valor'],$_POST['fecha_pago'],
+        $_POST['razon'],$_POST['tipo'],$_POST['notas'],$_POST['descuento'],$_POST['descuento_json']);
     echo json_encode($result);
 }
+function salvar_pago_modificar(){
+    $result = Pago::salvar_pago_modificar($_POST['id'],$_POST['razon'],$_POST['descuento'],$_POST['descuento_json']);
+    echo json_encode($result);
+}
+
 function get_pagos_socio(){
     $result = Pago::get_pagos_socio($_POST['id_socio']);
     echo json_encode($result);
@@ -148,6 +162,11 @@ function ingresar_entrega(){
     $result = Entrega::ingresar_entrega($_POST['fecha'],$_POST['id_socio'],$_POST['gramos'],$_POST['variedad'],$_POST['notas']);
     echo json_encode($result);
 }
+function cancelar_entrega(){
+    $result = Entrega::cancelar_entrega($_POST['id']);
+    echo json_encode($result);
+}
+
 
 //************** ADMINS ********************
 
@@ -245,6 +264,26 @@ function cancelar_deuda(){
     echo json_encode($result);
 }
 
+function generar_hash(){
+    $socio =Socio::get_socio($_POST['id']);
+    $hash = $socio->generate_hash();
+    echo $hash;
+}
+
+function ingresar_cuota_costo(){
+    $cuotaCostos = Pago::ingresar_cuota_costo($_POST['valor'],$_POST['fecha_inicio'],$_POST['fecha_fin']);
+    echo json_encode($cuotaCostos);
+}
+function borrar_cuota_costo(){
+    $result = Pago::delete_cuota_costo($_POST['id']);
+    echo json_encode($result);
+}
+function get_costos_cuotas(){
+    $result = Pago::get_cuota_costos();
+    echo json_encode($result);
+}
+
+
 //************** EXPORTAR ********************
 
 function exportar_pagos_por_socio(){
@@ -261,6 +300,13 @@ function exportar_pagos_por_mes(){
 }
 function exportar_socios_activos(){
     Exportar::exportar_socios_activos();
+}
+function exportar_deudas(){
+    Exportar::exportar_deudas();
+}
+
+function exportar_descuentos_por_socio(){
+    Exportar::exportar_descuentos_por_socio();
 }
 
 //************** PROC ********************

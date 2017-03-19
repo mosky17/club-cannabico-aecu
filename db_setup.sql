@@ -7,6 +7,9 @@ CREATE TABLE `admins` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
+INSERT INTO `admins` (`id`, `nombre`, `email`, `secreto`, `permiso_pagos`) VALUES (NULL, 'Administrador AECU', 'aecu', MD5('clubesaecu2015'), '1');
+INSERT INTO `admins` (`id`, `nombre`, `email`, `secreto`, `permiso_pagos`) VALUES (NULL, 'Admin', 'admin', MD5('admin'), '1');
+
 -- --------------------------------------------------------
 
 --
@@ -17,6 +20,18 @@ CREATE TABLE `config` (
   `name` varchar(50) NOT NULL,
   `value` varchar(100) NOT NULL,
   PRIMARY KEY (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `cuota_costo`
+--
+
+CREATE TABLE `cuota_costo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `valor` varchar(50) NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -128,6 +143,8 @@ CREATE TABLE `pagos` (
   `tipo` varchar(100) NOT NULL,
   `notas` text NOT NULL,
   `cancelado` tinyint(1) NOT NULL,
+  `descuento` decimal(10,2) NOT NULL,
+  `descuento_json` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=359 ;
 

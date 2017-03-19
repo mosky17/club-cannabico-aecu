@@ -1,5 +1,7 @@
 var Toolbox = {
     NombreMesesEsp:{1:"Enero",2:"Febrero",3:"Marzo",4:"Abril",5:"Mayo",6:"Junio",7:"Julio",8:"Agosto",9:"Setiembre",10:"Octubre",11:"Noviembre",12:"Diciembre"},
+    NombreMesesEspIndex:{"enero":1,"febrero":2,"marzo":3,"abril":4,"mayo":5,"junio":6,"julio":7,
+        "agosto":8,"setiembre":9,"octubre":10,"noviembre":11,"diciembre":12},
     LoaderQueue: 0,
     LoaderQueueModal: 0,
     GetUrlVars: function () {
@@ -129,6 +131,11 @@ var Toolbox = {
                 return '<span class="label" style="background-color:#C46210;">En Persona</span>';
                 break;
 
+            //descuentos
+            case "Voluntariado":
+                return '<span class="label label-success" style="">Voluntariado</span>';
+                break;
+
             //rubros pagos
             case "Cultivo":
                 return '<span class="label label-success" style="background-color:#1ba400;">Cultivo</span>';
@@ -160,7 +167,15 @@ var Toolbox = {
             case "Devoluciones":
                 return '<span class="label label-default">Devoluciones</span>';
                 break;
-
+            case "Limpieza":
+                return '<span class="label" style="background-color:#75f7ff;">Limpieza</span>';
+                break;
+            case "Manicura":
+                return '<span class="label" style="background-color:#e3ff75;">Manicura</span>';
+                break;
+            case "Seguridad":
+                return '<span class="label" style="background-color:#ff75dd;">Seguridad</span>';
+                break;
             //ELSE
             default:
                 return text;

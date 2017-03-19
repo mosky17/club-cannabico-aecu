@@ -11,7 +11,7 @@ if (Auth::access_level() < 0) {
 <?php } else { ?>
 
     <head>
-        <script src="scripts1.0.7/socio.js"></script>
+        <script src="scripts1.0.10/socio.js"></script>
     </head>
 
     <body>
@@ -19,6 +19,7 @@ if (Auth::access_level() < 0) {
         <div class="socioHeader">
             <h2 id="socioNombreTitulo"></h2>
             <span id="socioLabelEstado" class="label"></span>
+
             <div id=feedbackContainer></div>
         </div>
 
@@ -80,13 +81,16 @@ if (Auth::access_level() < 0) {
         </div>
 
 
-
         <!--Pagos-->
         <h3 id="socioPagoseTitulo">Pagos</h3>
 
         <div class="botoneraTopContainer">
-            <div class="btn btn-success" title="Ingresar nuevo pago" onclick="Socio.OpenModalNuevoPago();">Agregar Pago</div>
-            <div class="btn btn-danger" title="Nuevo recordatorio de deuda" onclick="Socio.OpenModalNuevaDeuda();">Agregar Deuda</div>
+            <div class="btn btn-success" title="Ingresar nuevo pago" onclick="Socio.OpenModalNuevoPago();">Agregar
+                Pago
+            </div>
+            <div class="btn btn-danger" title="Nuevo recordatorio de deuda" onclick="Socio.OpenModalNuevaDeuda();">
+                Agregar Deuda
+            </div>
         </div>
 
         <!-- Recordatorio Deuda -->
@@ -101,6 +105,7 @@ if (Auth::access_level() < 0) {
                         <th>Valor $</th>
                         <th>Fecha Pago</th>
                         <th>Raz&oacute;n</th>
+                        <th>Descuento $</th>
                         <th>Notas</th>
                         <th>Tipo</th>
                     </tr>
@@ -111,7 +116,9 @@ if (Auth::access_level() < 0) {
         </div>
 
         <!--Entregas-->
-        <h3 id="socioEntregasTitulo">Entregas <i id="socioBtnNuevaEntrega" class="icon-plus-sign-alt socioIconBtnTitle" title="Registrar nueva entrega" onclick="Socio.OpenModalNuevaEntrega();"></i></h3>
+        <h3 id="socioEntregasTitulo">Entregas <i id="socioBtnNuevaEntrega" class="icon-plus-sign-alt socioIconBtnTitle"
+                                                 title="Registrar nueva entrega"
+                                                 onclick="Socio.OpenModalNuevaEntrega();"></i></h3>
 
         <div class="box row-fluid">
             <div class="span12 socioListaContenedor">
@@ -122,6 +129,7 @@ if (Auth::access_level() < 0) {
                         <th>Fecha Entregado</th>
                         <th>Variedad</th>
                         <th>Notas</th>
+                        <th>Borrar</th>
                     </tr>
                     </thead>
                     <tbody id="listaEntregasSocioTabla"></tbody>
@@ -139,20 +147,7 @@ if (Auth::access_level() < 0) {
         </div>
         <div class="modal-body">
             <div id="feedbackContainerModalIngresarPago" class="feedbackContainerModal"></div>
-            <div class="modalListaRow">
-                <h4>Valor $</h4>
-                <input style="width: 110px;" type="text" placeholder="0.00" id="socioIngresarPagoValor">
-                <select style="float:right;" id="socioIngresarPagoTipo" placeholder="01/12/2013">
-                    <option value="transferencia_brou">Transferencia BROU</option>
-                    <option value="personalmente">Personalmente</option>
-                </select>
-                <h4 style="float:right;">Tipo</h4>
-            </div>
-            <div class="modalListaRow">
-                <h4>Fecha</h4>
-                <input type="text" placeholder="" id="socioIngresarPagoFecha" style="width:130px;">
-            </div>
-            <div class="modalListaRow">
+            <div class="modalListaRow rowNuevoPagoRazon">
                 <h4>Raz&oacute;n</h4>
                 <select id="socioIngresarPagoRazon" onchange="Socio.TogglePagoRazon();">
                     <option value="mensualidad">Mensualidad</option>
@@ -176,7 +171,43 @@ if (Auth::access_level() < 0) {
                     <option value="2014">2014</option>
                     <option value="2015">2015</option>
                     <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
                 </select>
+            </div>
+            <div class="modalListaRow rowFechaNuevoPago">
+                <div class="caja">
+                    <h4>Fecha</h4>
+                    <input type="text" placeholder="" id="socioIngresarPagoFecha" style="margin-left: 43px;width:130px;">
+                </div>
+                <div class="caja">
+                    <h4>Via</h4>
+                    <select style="" id="socioIngresarPagoTipo" placeholder="01/12/2013">
+                        <option value="transferencia_brou">Transferencia BROU</option>
+                        <option value="personalmente">Personalmente</option>
+                        <option value="otra">Otra</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modalListaRow">
+                <h4>Monto $</h4>
+                <input style="width: 110px;" type="text" placeholder="0.00" id="socioIngresarPagoValor" onchange="Socio.OnChangeMonto();">
+            </div>
+            <div class="modalListaRow rowFechaNuevoPago">
+                <div class="caja">
+                    <h4>Descuento $</h4>
+                    <input type="text" placeholder="0.00" id="socioIngresarPagoDescuento" style="margin-left: 23px;width:100px;">
+                </div>
+                <div class="caja">
+                    <h4>Raz&oacute;n desc.</h4>
+                    <select style="margin: 0 0 0 10px;" id="socioIngresarPagoRazonDescuento">
+                        <option value="Voluntariado">Voluntariado</option>
+                        <option value="Resolucion directiva">Resoluci&oacute;n directiva</option>
+                        <option value="Otra">Otra</option>
+                    </select>
+                </div>
             </div>
             <div class="modalListaRow">
                 <h4>Notas</h4>
@@ -271,7 +302,8 @@ if (Auth::access_level() < 0) {
         <div class="modal-footer">
             <img src="images/loaderModal.gif" class="loaderModal">
             <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-            <button id="socioIngresarEntrega" class="btn btn-primary" onclick="Socio.IngresarEntrega();">Ingresar</button>
+            <button id="socioIngresarEntrega" class="btn btn-primary" onclick="Socio.IngresarEntrega();">Ingresar
+            </button>
         </div>
     </div>
 

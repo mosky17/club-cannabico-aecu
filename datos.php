@@ -11,7 +11,7 @@ if (Auth::access_level() < 0) {
 <?php } else { ?>
 
     <head>
-        <script src="scripts1.0.7/datos.js"></script>
+        <script src="scripts1.0.10/datos.js"></script>
     </head>
 
     <body>

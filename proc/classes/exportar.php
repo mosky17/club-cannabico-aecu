@@ -89,7 +89,7 @@ class Exportar {
         header("Pragma: no-cache");
         header("Expires: 0");
 
-        $array = array(array("Fecha", "Concepto", "# de socio", "Nombre", "Debe ($)", "Haber ($)","Saldo ($)", "Notas" ));
+        $array = array(array("Fecha", "Concepto", "# de socio", "Nombre", "Debe ($)", "Haber ($)","Saldo ($)", "Notas", "Rubro"));
 
         $gastos = Gasto::get_lista_gastos();
         $resultPagos = mysql_query("SELECT * FROM pagos p, socios s WHERE p.id_socio = s.id AND p.cancelado=0 ORDER BY p.fecha_pago");
@@ -105,11 +105,11 @@ class Exportar {
                     if($gastos[$indexGastos]->valor>0){
                         //gasto
                         $array[] = array($gastos[$indexGastos]->fecha_pago, Exportar::sacarTildes($gastos[$indexGastos]->razon), "", "",
-                            "", round($gastos[$indexGastos]->valor), $saldo , '"'.Exportar::sacarTildes($gastos[$indexGastos]->notas).'"');
+                            "", round($gastos[$indexGastos]->valor), $saldo , '"'.Exportar::sacarTildes($gastos[$indexGastos]->notas).'"', '"'.Exportar::sacarTildes($gastos[$indexGastos]->rubro).'"');
                     }else{
                         //haber
                         $array[] = array($gastos[$indexGastos]->fecha_pago, Exportar::sacarTildes($gastos[$indexGastos]->razon), "", "",
-                            round($gastos[$indexGastos]->valor*-1), "", $saldo , '"'.Exportar::sacarTildes($gastos[$indexGastos]->notas).'"');
+                            round($gastos[$indexGastos]->valor*-1), "", $saldo , '"'.Exportar::sacarTildes($gastos[$indexGastos]->notas).'"', '"'.Exportar::sacarTildes($gastos[$indexGastos]->rubro).'"');
                     }
 
                     $indexGastos += 1;
@@ -129,11 +129,11 @@ class Exportar {
                 if($gastos[$indexGastos]->valor>0){
                     //gasto
                     $array[] = array($gastos[$indexGastos]->fecha_pago, Exportar::sacarTildes($gastos[$indexGastos]->razon), "", "",
-                        "", round($gastos[$indexGastos]->valor), $saldo , '"'.Exportar::sacarTildes($gastos[$indexGastos]->notas).'"');
+                        "", round($gastos[$indexGastos]->valor), $saldo , '"'.Exportar::sacarTildes($gastos[$indexGastos]->notas).'"', '"'.Exportar::sacarTildes($gastos[$indexGastos]->rubro).'"');
                 }else{
                     //haber
                     $array[] = array($gastos[$indexGastos]->fecha_pago, Exportar::sacarTildes($gastos[$indexGastos]->razon), "", "",
-                        round($gastos[$indexGastos]->valor*-1), "", $saldo , '"'.Exportar::sacarTildes($gastos[$indexGastos]->notas).'"');
+                        round($gastos[$indexGastos]->valor*-1), "", $saldo , '"'.Exportar::sacarTildes($gastos[$indexGastos]->notas).'"', '"'.Exportar::sacarTildes($gastos[$indexGastos]->rubro).'"');
                 }
 
                 $indexGastos += 1;
@@ -255,6 +255,129 @@ class Exportar {
         }
 
         Exportar::outputCSV($array);
+    }
+
+    static public function exportar_deudas()
+    {
+        $fechaArchivo = date('Y-m-d');
+        header("Content-type: text/csv");
+        header("Content-Disposition: attachment; filename=Lista_de_deudas_" . $GLOBALS['short_name'] . "-" . $fechaArchivo . ".csv");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+
+        $rowTitulo = array("# Socio", "Nombre", "Total Adeudado");
+        $allRows = array();
+        $allRows[] = $rowTitulo;
+        $adeudadoPorSocio = array();
+
+        $socios = Socio::get_socios_activos();
+        $sociosIndexed = array();
+        $deudas = RecordatorioDeuda::GetAllDeudas();
+        $total = 0;
+
+        if($socios) {
+            for ($i = 0; $i < count($socios); $i++) {
+                $sociosIndexed[$socios[$i]->id] = $socios[$i];
+            }
+        }
+
+        if($deudas) {
+            for ($i = 0; $i < count($deudas); $i++) {
+                if(!array_key_exists($deudas[$i]->id_socio,$adeudadoPorSocio)){
+                    $adeudadoPorSocio[$deudas[$i]->id_socio] = $deudas[$i]->monto;
+                }else{
+                    $adeudadoPorSocio[$deudas[$i]->id_socio] = intval($adeudadoPorSocio[$deudas[$i]->id_socio]) + intval($deudas[$i]->monto);
+                }
+                $total += intval($deudas[$i]->monto);
+            }
+        }
+
+        foreach ($adeudadoPorSocio as $clave => $valor){
+            $allRows[] = array($sociosIndexed[$clave]->numero,$sociosIndexed[$clave]->nombre,$valor);
+        }
+
+        $allRows[] = array("","TOTAL",$total);
+
+        Exportar::outputCSV($allRows);
+    }
+
+    static public function exportar_descuentos_por_socio()
+    {
+        $fechaArchivo = date('Y-m-d');
+        header("Content-type: text/csv");
+        header("Content-Disposition: attachment; filename=Lista_de_descuentos_" . $GLOBALS['short_name'] . "-" . $fechaArchivo . ".csv");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+
+        $rowTitulo = array("# Socio", "Nombre", "Total");
+        $allRows = array();
+        $totalesPorSocio = array();
+        $mesesDisponibles = array();
+        $descuentosPorMes = array();
+        $socios = array();
+
+        $result = mysql_query("SELECT * FROM pagos p, socios s WHERE s.activo=1 AND p.id_socio = s.id AND p.cancelado=0 ORDER BY s.numero");
+
+        if($result) {
+            while ($row = mysql_fetch_array($result)) {
+
+                if(strpos($row['razon'],'mensualidad') == 0) {
+
+                    //add socio to array
+                    if (count($socios) == 0 || $socios[count($socios) - 1]["numero"] < $row['numero']) {
+                        $socios[] = array("id" => $row['id'], "numero" => $row['numero'], "nombre" => $row['nombre']);
+                    }
+
+                    if (array_key_exists($row["numero"], $totalesPorSocio)) {
+                        $totalesPorSocio[$row["numero"]] = $totalesPorSocio[$row["numero"]] + round($row['descuento']);
+                    } else {
+                        $totalesPorSocio[$row["numero"]] = round($row['descuento']);
+                    }
+
+                    $mes = substr($row['razon'], 13, -1);
+
+                    if(!empty($mes)) {
+
+                        //add mes to array
+                        if (!in_array($mes, $mesesDisponibles)) {
+                            $mesesDisponibles[] = $mes;
+                        }
+
+                        //add descuento por mes
+                        if (array_key_exists($row['numero'], $descuentosPorMes)) {
+                            if (array_key_exists($mes, $descuentosPorMes[$row['numero']])) {
+                                $descuentosPorMes[$row['numero']][$mes] = $descuentosPorMes[$row['numero']][$mes] + round($row['descuento']);
+                            } else {
+                                $descuentosPorMes[$row['numero']][$mes] = round($row['descuento']);
+                            }
+                        } else {
+                            $descuentosPorMes[$row['numero']] = array($mes => round($row['descuento']));
+                        }
+                    }
+                }
+            }
+        }
+
+        //armar rows
+        $allRows[] = array_merge($rowTitulo,$mesesDisponibles);
+
+        foreach ($socios as $value) {
+            $row = array($value["numero"],$value["nombre"],$totalesPorSocio[$value["numero"]]);
+            for($i = 0;$i<count($mesesDisponibles);$i++){
+                if(array_key_exists($value["numero"],$descuentosPorMes)){
+                    if(array_key_exists($mesesDisponibles[$i],$descuentosPorMes[$value["numero"]])){
+                        $row[] = $descuentosPorMes[$value["numero"]][$mesesDisponibles[$i]];
+                    }else{
+                        $row[] = "";
+                    }
+                }else{
+                    $row[] = "";
+                }
+            }
+            $allRows[] = $row;
+        }
+
+        Exportar::outputCSV($allRows);
     }
 
     private static function sacarTildes($text) {

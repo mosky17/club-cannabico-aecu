@@ -19,13 +19,13 @@ $datos = Dato::get_datos();
 <!DOCTYPE html>
 <head>
     <title><?php echo $datos["nombre"]; ?></title>
-    <link href="styles1.0.7/bootstrap_old.css" rel="stylesheet" media="screen">
+    <link href="styles1.0.9/bootstrap_old.css" rel="stylesheet" media="screen">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="styles1.0.7/main.css" rel="stylesheet">
-    <link href="styles1.0.7/vista.css" rel="stylesheet">
+    <link href="styles1.0.9/main.css" rel="stylesheet">
+    <link href="styles1.0.9/vista.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="scripts1.0.7/bootstrap.js"></script>
-    <script src="scripts1.0.7/toolbox.js"></script>
+    <script src="scripts1.0.10/bootstrap.js"></script>
+    <script src="scripts1.0.10/toolbox.js"></script>
 </head>
 
 <div id="headerNavigation" class="navbar navbar-inverse navbar-fixed-top">

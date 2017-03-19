@@ -18,7 +18,7 @@ if (Auth::access_level() < 0) {
 <?php } else { ?>
 
     <head>
-        <script src="scripts1.0.7/lista_gastos.js"></script>
+        <script src="scripts1.0.10/lista_gastos.js"></script>
     </head>
 
     <body>
@@ -90,6 +90,9 @@ if (Auth::access_level() < 0) {
                     <option value="Locacion">Locaci&oacute;n</option>
                     <option value="Transporte">Transporte</option>
                     <option value="Devoluciones">Devoluciones</option>
+                    <option value="Limpieza">Limpieza</option>
+                    <option value="Manicura">Manicura</option>
+                    <option value="Seguridad">Seguridad</option>
                     <option value="Otro">Otro</option>
                 </select>
             </div>

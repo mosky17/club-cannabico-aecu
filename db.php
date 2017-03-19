@@ -2,9 +2,9 @@
 
 class DB {
 
-    const db_server = "127.0.0.1:8889";
-    const db_name = "csc1";
-    const db_username = "csc";
-    const db_passwd = "csc";
+    const db_server = "127.0.0.1";  ## IP servidor MySQL
+    const db_name = "csc1"; ## Nombre DB MySQL
+    const db_username = "csc"; ## Usuario DB MySQL
+    const db_passwd = "csc"; ## Contraseña DB MySQL
 
 }

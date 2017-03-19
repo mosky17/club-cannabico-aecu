@@ -126,7 +126,7 @@ class Socio
         }
         $tagString = rtrim($tagString, ",");
 
-        $q = mysql_query("INSERT INTO socios (id, numero, nombre, documento, email, fecha_inicio, tags, telefono, observaciones, fecha_nacimiento, hash) VALUES (" .
+        $q = mysql_query("INSERT INTO socios (id, numero, nombre, documento, email, fecha_inicio, tags, telefono, observaciones, fecha_nacimiento) VALUES (" .
         "null, " . htmlspecialchars(mysql_real_escape_string($numero)) . ", '" . htmlspecialchars(mysql_real_escape_string($nombre)) . "', '" .
         htmlspecialchars(mysql_real_escape_string($documento)) . "', '" . htmlspecialchars(mysql_real_escape_string($email)) . "', '" .
         htmlspecialchars(mysql_real_escape_string($fecha_inicio)) . "', '" . htmlspecialchars(mysql_real_escape_string($tagString)) . "', '" .
