@@ -7,7 +7,6 @@ CREATE TABLE `admins` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
-INSERT INTO `admins` (`id`, `nombre`, `email`, `secreto`, `permiso_pagos`) VALUES (NULL, 'Administrador AECU', 'aecu', MD5('clubesaecu2015'), '1');
 INSERT INTO `admins` (`id`, `nombre`, `email`, `secreto`, `permiso_pagos`) VALUES (NULL, 'Admin', 'admin', MD5('admin'), '1');
 
 -- --------------------------------------------------------

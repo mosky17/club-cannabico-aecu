@@ -76,7 +76,7 @@ require_once(dirname(__FILE__) . '/config.php');
 </head>
 <body>
 <div class="container">
-    <img class="logo_login" src="http://aecu.org.uy/logo_aecu_white.png">
+    <img class="logo_login" src="logo_aecu_white.png">
     <div class="content">
         <div class="row">
             <div class="login-form">
